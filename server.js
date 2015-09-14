@@ -66,7 +66,7 @@ apiRouter.post('/authenticate', function(req, res){
       //check if password is a match
       var validPassword = user.comparePassword(req.body.password);
       if(!validPassword) {
-        res.json({success: false, message: 'Authentication failed. Wrong password'})
+        res.json({success: false, message: 'Authentication failed. Wrong password'});
       }else {
         //if user is found and password matches
         var token = jwt.sign({
@@ -106,9 +106,9 @@ apiRouter.use(function(req,res,next){
       }else {
         //If token checks out, save the request to be used in other routes
         req.decoded = decoded;
-        next();
+        next();//User may continue forward if they have a valid token
       }
-    })
+    });
 
   }else {
     //if there is no token return 403(access forbidden) and an error message
@@ -205,6 +205,11 @@ apiRouter.route('/users/:user_id')
       res.json({message: 'Succesfully deleted user'});
     });
   });
+
+  //api endpoint t0 get user information
+  apiRouter.get('/me', function(req, res){
+    res.send(req.decoded);
+  })
 
 
 //Register Routes --------------------
