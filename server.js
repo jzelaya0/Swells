@@ -99,6 +99,19 @@ apiRouter.route('/users')
     })
   })
 
+//routes that end with /users:user_id --------------------
+apiRouter.route('/users/:user_id')
+  //GET a single user at /users/:user_id
+  .get(function(req,res){
+    User.findById(req.params.user_id, function(err,user){
+      if(err) res.send(err);
+
+      // return the user
+      res.json(user);
+    })
+  })
+
+
 //Register Routes --------------------
 app.use('/api', apiRouter);//Prefix /api to our api Routes
 
