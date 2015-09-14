@@ -55,7 +55,7 @@ var apiRouter = express.Router();
 apiRouter.post('/authenticate', function(req, res){
   //find the user and select username and password explicitly
   User.findOne({
-    username: req.boby.username
+    username: req.body.username
   }).select('name username password').exec(function(err, user){
     if(err) throw err;
 
