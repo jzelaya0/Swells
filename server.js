@@ -88,6 +88,17 @@ apiRouter.route('/users')
     });//End save
   })//End Post
 
+  //GET all users at /api/users
+  .get(function(req, res){
+    User.find(function(err,users){
+      if(err){
+        res.send(err);
+      }
+      //Return all users
+      res.json(users);
+    })
+  })
+
 //Register Routes --------------------
 app.use('/api', apiRouter);//Prefix /api to our api Routes
 
