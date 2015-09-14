@@ -111,7 +111,7 @@ apiRouter.route('/users/:user_id')
     });
   })//End Get
 
-  //UPDATE the user with this id at /user/:user_id
+  //UPDATE the user with this id at /users/:user_id
   .put(function(req,res){
     //use user model to find the user we want
     User.findById(req.params.user_id, function(err,user){
@@ -127,15 +127,27 @@ apiRouter.route('/users/:user_id')
         if(err) res.send(err);
 
         // return message
-        res.json({message: 'User has been updated!'})
-      })//End save
+        res.json({message: 'User has been updated!'});
+      });//End save
 
     });//End find by id
-  });//End Post
+  })//End Post
+
+  //DELETE a user with this id at /users/:user_id
+  .delete(function(req,res){
+    User.remove({
+      _id: req.params.user_id
+    }, function(err, user){
+      if(err) res. send(err);
+
+      res.json({message: 'Succesfully deleted user'});
+    });
+  });
 
 
 //Register Routes --------------------
 app.use('/api', apiRouter);//Prefix /api to our api Routes
+
 
 
 
