@@ -88,12 +88,34 @@ apiRouter.post('/authenticate', function(req, res){
 });//End Post authenticate
 
 
-//Middleware to use before for all requests
+
+//Middleware to use before for all requests(Token varification)
 apiRouter.use(function(req,res,next){
   //logging
   console.log('A visitor has arrived');
-  next();//Go to the next Route
-});
+
+  //Check Header OR Url parameters OR POST parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  //Decode the token
+  if(token){
+    //Verifies secret and checks expiration
+    jwt.verify(token, superSecret, function(err, decoded){
+      if(err){
+        return res.json({success: false, message: 'Failed token authentication'});
+      }else {
+        //If token checks out, save the request to be used in other routes
+        req.decoded = decoded;
+        next();
+      }
+    })
+
+  }else {
+    //if there is no token return 403(access forbidden) and an error message
+    return res.status(403).send({success: false, message: 'No token Provided'});
+  }
+
+});//End Middleware
 
 
 //Test Route
