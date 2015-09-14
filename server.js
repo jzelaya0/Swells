@@ -6,6 +6,7 @@ var mongoose   = require('mongoose'); //Mogoose for mongodb
 var morgan     = require('morgan'); //log requests through the console
 var bodyParser = require('body-parser'); //Pull information through HTML POST
 var port       = process.env.PORT || 3000;//Set the port for app
+var User       = require('./models/user');
 
 
 //CONNTECT TO DATABASE
