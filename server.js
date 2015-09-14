@@ -5,6 +5,7 @@ var app        = express(); //Create app with express
 var mongoose   = require('mongoose'); //Mogoose for mongodb
 var morgan     = require('morgan'); //log requests through the console
 var bodyParser = require('body-parser'); //Pull information through HTML POST
+var jwt        = require('jsonwebtoken');
 var port       = process.env.PORT || 3000;//Set the port for app
 var User       = require('./models/user');
 
@@ -18,6 +19,8 @@ db.on('error', console.error.bind(console, 'Could not establish database connect
 db.once('open', function(data){
   console.log("Succesfull database connection");
 });
+
+var superSecret = 'muchoqueso';
 
 //CONFIGURATION
 //  ============================================
@@ -47,6 +50,43 @@ app.get('/', function(req,res){
 
 //Instance of express router
 var apiRouter = express.Router();
+
+//Route for authenticating user at /api/authenticate
+apiRouter.post('/authenticate', function(req, res){
+  //find the user and select username and password explicitly
+  User.findOne({
+    username: req.boby.username
+  }).select('name username password').exec(function(err, user){
+    if(err) throw err;
+
+    // no user with that username was found
+    if(!user){
+      res.json({success: false, message: 'Authentication failed. User not found'});
+    }else if (user) {
+      //check if password is a match
+      var validPassword = user.comparePassword(req.body.password);
+      if(!validPassword) {
+        res.json({success: false, message: 'Authentication failed. Wrong password'})
+      }else {
+        //if user is found and password matches
+        var token = jwt.sign({
+          name: user.name,
+          username: user.username
+        }, superSecret, {
+          expiresInMinutes: 1440 //Expires in 24 hours
+        });
+
+        //return the information including token as json
+        res.json({
+          success: true,
+          message: 'Here is your token',
+          token: token
+        });//End response json
+      }
+    }
+  });
+});//End Post authenticate
+
 
 //Middleware to use before for all requests
 apiRouter.use(function(req,res,next){
