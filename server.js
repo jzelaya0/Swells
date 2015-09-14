@@ -7,6 +7,17 @@ var morgan     = require('morgan'); //log requests through the console
 var bodyParser = require('body-parser'); //Pull information through HTML POST
 var port       = process.env.PORT || 3000;//Set the port for app
 
+
+//CONNTECT TO DATABASE
+// ==============================
+mongoose.connect('mongodb://jesse:iration@ds035653.mongolab.com:35653/swellsdb');
+//Test Database connection
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Could not establish database connection'));
+db.once('open', function(data){
+  console.log("Succesfull database connection");
+});
+
 //CONFIGURATION
 //  ============================================
 //Use body-parser to grab info from POST requests
