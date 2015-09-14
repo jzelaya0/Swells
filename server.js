@@ -96,8 +96,8 @@ apiRouter.route('/users')
       }
       //Return all users
       res.json(users);
-    })
-  })
+    });
+  });//End Get
 
 //routes that end with /users:user_id --------------------
 apiRouter.route('/users/:user_id')
@@ -108,8 +108,30 @@ apiRouter.route('/users/:user_id')
 
       // return the user
       res.json(user);
-    })
-  })
+    });
+  })//End Get
+
+  //UPDATE the user with this id at /user/:user_id
+  .put(function(req,res){
+    //use user model to find the user we want
+    User.findById(req.params.user_id, function(err,user){
+      if(err) res.send(err);
+
+      //update the users info only if it is new(no blanks)
+      if(req.body.name) user.name = req.body.name;
+      if(req.body.username) user.username = req.body.username;
+      if(req.body.password) user.password = req.body.password;
+
+      //save user
+      user.save(function(err){
+        if(err) res.send(err);
+
+        // return message
+        res.json({message: 'User has been updated!'})
+      })//End save
+
+    });//End find by id
+  });//End Post
 
 
 //Register Routes --------------------
