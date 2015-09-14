@@ -48,11 +48,45 @@ app.get('/', function(req,res){
 //Instance of express router
 var apiRouter = express.Router();
 
+//Middleware to use before for all requests
+apiRouter.use(function(req,res,next){
+  //logging
+  console.log('A visitor has arrived');
+  next();//Go to the next Route
+});
+
 
 //Test Route
 apiRouter.get('/', function(req,res){
   res.json({message: "Welcome to the API"});
 });
+
+//routes that end with /users --------------------
+apiRouter.route('/users')
+
+  //CREATE a user on /api/users
+  .post(function(req, res){
+    //creat a new user instance from User model
+    var user = new User();
+
+    //set the users information that comes from requests
+    user.name = req.body.name;
+    user.username = req.body.username;
+    user.password = req.body.password;
+
+    //save user and check for errors
+    user.save(function(err){
+      if(err){
+        //A duplicate was entered
+        if(err.code == 11000){
+          return res.json({success: false, message: 'A user with that username exists'});
+        }else {
+          return res.send(err);
+        }
+      }
+      res.json({message: 'User created!'});
+    });//End save
+  })//End Post
 
 //Register Routes --------------------
 app.use('/api', apiRouter);//Prefix /api to our api Routes
