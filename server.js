@@ -31,7 +31,7 @@ app.use(morgan('dev'));
 //Basic HomePage Route (Temporary)
 app.get('/', function(req,res){
   res.send('Welcome to the home page!');
-})
+});
 
 //Instance of express router
 var apiRouter = express.Router();
@@ -39,8 +39,15 @@ var apiRouter = express.Router();
 
 //Test Route
 apiRouter.get('/', function(req,res){
-  res.json({message: "Welcome to the API"})
-})
+  res.json({message: "Welcome to the API"});
+});
 
 //Register Routes --------------------
 app.use('/api', apiRouter);//Prefix /api to our api Routes
+
+
+
+//START THE SERVER
+//  ============================================
+app.listen(port);
+console.log('Listening on Port: ', port);
