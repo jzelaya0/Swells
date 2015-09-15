@@ -51,7 +51,7 @@ app.use('/api', apiRoutes); //Prefix /api to our api Routes
 //Send Users to FrontEnd ------------
 //Must be registerd after API Routes
 app.get('*', function(req, res){
-  res.sendFile(path.join(__dirname + 'public/app/views/index.html'));
+  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 })
 
 
