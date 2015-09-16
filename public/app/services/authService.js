@@ -85,10 +85,28 @@ angular.module('authService', [])
   .factory('AuthInterceptor', function($q, $location, AuthToken){
     var interceptorFactory = {};
 
-    //attach the token to every requests
+    //attach the token to all HTTP requests
+    interceptorFactory.request = function(config){
+      //grab the token
+      var token = AuthToken.getToken();
 
+      //If token exists then add it to the header as x-access-token
+      if(token)
+        config.header['x-access-token'] = token;
 
-    //redirect if a token doesn't authenticate
+      return config;
+    };
+
+    //On response errors
+
+    interceptorFactory.responseError = function(response){
+      //If server returns a 403 forbidden response
+      if(response.status == 403)
+        $location.path('/login');
+
+      //return the errors from the server as a promise
+      return $q.reject(response);
+    }
 
     //return interceptorFactory
     return interceptorFactory;
