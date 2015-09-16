@@ -12,11 +12,41 @@ angular.module('authService', [])
     //create auth factory object
     var authFactory = {};
 
-    //handle login
+    // handle login for users
+    // Post request to /api/authenticate
+    authFactory.login = function(username, password){
+      //return the promise object and its data
+      return $http.post('/api/authenticate', {
+        username: username,
+        password: password
+      })
+        .success(function(data){
+          AuthToken.setToken(data.token);
+          return data;
+        });
+    };
 
-    //check if a user is logged in
+    //log a user out by clearing the token useing AuthToken factory
+    authFactory.logout = function(){
+      //clear the token
+      AuthToken.setToken();
+    };
 
-    //get the user info
+    //check if a user is logged in and check if there is a local token
+    authFactory.isLoggedIn = function(){
+      if(AuthToken.getToken())
+        return true;
+      else
+        return false;
+    };
+
+    //get the logged in user
+    authFactory.getUser = function(){
+      if(AuthToken.getToken())
+        return $http.get('/api/me');
+      else
+        return $q.reject({message: "User doesn't have a token"});
+    };
 
     //return auth factory object
     return authFactory;
