@@ -1,6 +1,7 @@
 //api.js
 var bodyParser = require('body-parser');
 var User       = require('../models/user');
+var Surf       = require('../models/surf');
 var jwt        = require('jsonwebtoken');
 var config     = require('../config');
 
@@ -13,7 +14,7 @@ module.exports = function(app, express){
   var apiRouter = express.Router();
 
   //API AUTHENTICATE ROUTE
-  // ====================================
+  // ====================================================================
   //Route for authenticating user at /api/authenticate
   apiRouter.post('/authenticate', function(req, res){
     //find the user and select username and password explicitly
@@ -90,7 +91,7 @@ module.exports = function(app, express){
 
 
   //API ROUTES USERS
-  // ====================================
+  // ====================================================================
   //routes that end with /users --------------------
   apiRouter.route('/users')
 
@@ -180,6 +181,45 @@ module.exports = function(app, express){
     apiRouter.get('/me', function(req, res){
       res.send(req.decoded);
     });
+
+    //API ROUTES SURF
+    // ====================================================================
+    //routes that end with /surf --------------------
+
+    apiRouter.route('/surf')
+
+      //CREATE a surf on /api/surf
+      .post(function(req, res){
+        //create a new instance of the surf model
+        var surf = new Surf();
+
+        //set the surf information that comes from requests
+        surf.title = req.body.title;
+        surf.longitude = req.body.longitude;
+        surf.latitude = req.body.latitude;
+        surf.comment = req.body.comment;
+        // surf.userId = req.user._id;
+
+        //save user and check for errors
+        surf.save(function(err){
+          if(err)
+              res.send(err);
+
+          res.json({message: 'Surf Session Created!'});
+        });//End save
+
+      })//End Post
+
+      //GET all surf sessions at api/surf
+      .get(function(req, res){
+        // Use the Surf model to find all surf sessions
+        Surf.find({ }, function(err, surfSesh) {
+            if (err)
+              res.send(err);
+
+            res.json(surfSesh);
+          });
+      })//
 
 
     return apiRouter;
