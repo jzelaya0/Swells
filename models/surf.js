@@ -4,7 +4,7 @@ var Schmea   = mongoose.Schema;
 
 //SURF SCHEMA
 //  ============================================
-var surfSchema = new Schema({
+var SurfSchema = new Schema({
   title: String,
   longitude: Number,
   latitude: Number,
@@ -12,3 +12,7 @@ var surfSchema = new Schema({
   created: { type: Date, default: Date.now },
   userId: String
 });
+
+var Surf = mongoose.model('Surf', SurfSchema);
+
+module.exports = Surf;
