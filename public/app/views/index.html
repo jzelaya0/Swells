@@ -3,8 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>Swells</title>
+    <!-- For Angular Routing -->
+    <base href="/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+    <!-- JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.min.js"></script>
+    <!-- Controllers -->
+    <script src="app/controllers/mainCtrl.js"></script>
+    <!-- Services -->
+    <script src="app/services/authService.js"></script>
+    <!-- Main Angular Files -->
+    <script src="app/routes.js"></script>
+    <script src="app/app.js"></script>
   </head>
-  <body>
-    TEST!
+
+  <body ng-app="swellsApp" ng-controller="mainController as main">
+    <!-- NavBar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Swells</a>
+        </div>
+        <div>
+          <!-- App Navigation -->
+          <ul class="nav navbar-nav" ng-if='loggedIn'>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3</a></li>
+          </ul>
+          <!-- Sign Up, Login, Username, Logout -->
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li ng-if="!main.loggedIn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li ng-if="main.loggedIn"> Sup, {{main.user.name}}!</li>
+            <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End NavBar -->
+
+    <!-- ANGULAR VIEWS -->
+    <main class="container-fluid">
+      <div ng-view></div>
+    </main>
+
   </body>
+
 </html>
