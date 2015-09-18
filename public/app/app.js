@@ -1,4 +1,4 @@
-//./public/app.js
+//./public/app/app.js
 angular.module('userApp', [
   'ngAnimate',
   'appRoutes',
