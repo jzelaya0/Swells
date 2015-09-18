@@ -1,6 +1,6 @@
 //./public/app/app.js
-angular.module('userApp', [
-  'ngAnimate',
+angular.module('swellsApp', [
+  // 'ngAnimate',
   'appRoutes',
   'authService',
   'mainCtrl'
