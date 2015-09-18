@@ -38,7 +38,7 @@
           <!-- Sign Up, Login, Username, Logout -->
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li ng-if="!main.loggedIn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li ng-if="!main.loggedIn"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li ng-if="main.loggedIn"> Sup, {{main.user.name}}!</li>
             <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Log Out</a></li>
           </ul>
