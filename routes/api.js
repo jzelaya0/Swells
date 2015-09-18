@@ -57,7 +57,7 @@ module.exports = function(app, express){
   //API USERS ROUTE  (Create User)
   // ====================================================================================
   //routes that end with /users --------------------
-  //create a user before the token Middleware so that a new user could be created
+  //create a new user before the token Middleware 
 
   //CREATE a user on /api/users
   apiRouter.post('/users', function(req, res){
@@ -269,8 +269,17 @@ module.exports = function(app, express){
           });
       })//End Put
 
+      //DELETE a surf session from a user at /surf/:surf_id
+      .delete(function(req,res){
+        //User the Surf model to find a specific surf session and delete it
+        Surf.remove({user_id: req.user._id, _id: req.params.surf_id},
+          function(err){
+            if(err) res.send(err);
 
-
+            res.json({message: 'Surf Session Succesfully Deleted!'});
+          }
+        );
+      })//End Delete
 
 
     return apiRouter;
