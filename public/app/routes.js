@@ -6,9 +6,9 @@ angular.module('appRoutes', ['ngRoute'])
 
     //homepage route
     .when('/',{
-      templateUrl : 'app/views/pages.html'
+      templateUrl : 'app/views/pages/home.html'
     });
 
     //Remove hash in the Url
-    $locationProvider.html5(true);
+    $locationProvider.html5Mode(true);
   })//End config
