@@ -70,7 +70,12 @@ module.exports = function(app, express){
         }else {
           //If token checks out, save the request to be used in other routes
           req.decoded = decoded;
-          next();//User may continue forward if they have a valid token
+          // GET USER HERE
+          User.findOne({username: decoded.username}, function(err, user){
+             req.user = user;
+             next()
+          })
+
         }
       });
 
