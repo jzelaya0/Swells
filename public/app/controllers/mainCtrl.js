@@ -12,7 +12,7 @@ angular.module('mainCtrl', [])
 
       //get user information on a page load
       Auth.getUser()
-        .success(function(data){
+        .then(function(data){
           vm.user = data;
         });
     });
