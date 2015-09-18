@@ -230,7 +230,7 @@ module.exports = function(app, express){
 
       })//End Post
 
-      //GET surf sessions at api/surf from a specifit user
+      //GET surf sessions at api/surf from a specific user
       .get(function(req, res){
         Surf.find({user_id: req.user._id},function(err, surfSesh){
           if(err) res.send(err);
@@ -241,6 +241,8 @@ module.exports = function(app, express){
 
     //routes that end with /surf/:surf_id --------------------
     apiRouter.route('/surf/:surf_id')
+
+    //GET one surf session from a user at /surf/:surf_id
       .get(function(req, res){
         Surf.find({user_id: req.user._id, _id:req.params.surf_id}, function(err,surf){
           if(err) res.send(err);
@@ -249,6 +251,23 @@ module.exports = function(app, express){
         });//end find
 
       })//Eng Get
+
+      //UPDATE a surf session from a user at /surf/:surf_id
+      .put(function(req, res){
+        //Use the Surf model to find a specific surf session
+        Surf.update({user_id: req.user._id, _id: req.params.surf_id},{
+          //
+          title: req.body.title,
+          longitude: req.body.longitude,
+          latitude: req.body.latitude,
+          comment: req.body.comment},
+
+           function(err,surf){
+             if(err) res.send(err);
+
+             res.json({message: surf + 'updated!'});
+          });
+      })//End Put
 
 
 
