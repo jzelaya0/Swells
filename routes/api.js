@@ -13,8 +13,9 @@ module.exports = function(app, express){
   // Instance of express Router
   var apiRouter = express.Router();
 
+
   //API AUTHENTICATE ROUTE
-  // ====================================================================
+  // ====================================================================================
   //Route for authenticating user at /api/authenticate
   apiRouter.post('/authenticate', function(req, res){
     //find the user and select username and password explicitly
@@ -51,6 +52,39 @@ module.exports = function(app, express){
     });
   });//End Post authenticate
 
+  apiRouter.route('/users')
+
+  //routes that end with /users --------------------
+  //create a user before the token Middleware so that a new user could be created
+
+  //CREATE a user on /api/users
+  .post(function(req, res){
+    //creat a new user instance from User model
+    var user = new User();
+
+    //set the users information that comes from requests
+    user.name = req.body.name;
+    user.username = req.body.username;
+    user.password = req.body.password;
+
+    //save user and check for errors
+    user.save(function(err){
+      if(err){
+        //A duplicate was entered
+        if(err.code == 11000){
+          return res.json({success: false, message: 'A user with that username exists'});
+        }else {
+          return res.send(err);
+        }
+      }
+      res.json({message: 'User created!'});
+    });//End save
+  })//End User Post
+
+
+
+
+
   //TOKEN MIDDLEWARE
   // ====================================
   //Middleware to use before for all requests(Token varification)
@@ -73,8 +107,8 @@ module.exports = function(app, express){
           // GET USER HERE
           User.findOne({username: decoded.username}, function(err, user){
              req.user = user;
-             next()
-          })
+             next();
+          });
 
         }
       });
@@ -87,6 +121,8 @@ module.exports = function(app, express){
   });//End Middleware
 
 
+
+
   //TEST ROUTE
   // ====================================
   //Test Route
@@ -95,34 +131,12 @@ module.exports = function(app, express){
   });
 
 
+
+
   //API ROUTES USERS
-  // ====================================================================
+  // ====================================================================================
   //routes that end with /users --------------------
   apiRouter.route('/users')
-
-    //CREATE a user on /api/users
-    .post(function(req, res){
-      //creat a new user instance from User model
-      var user = new User();
-
-      //set the users information that comes from requests
-      user.name = req.body.name;
-      user.username = req.body.username;
-      user.password = req.body.password;
-
-      //save user and check for errors
-      user.save(function(err){
-        if(err){
-          //A duplicate was entered
-          if(err.code == 11000){
-            return res.json({success: false, message: 'A user with that username exists'});
-          }else {
-            return res.send(err);
-          }
-        }
-        res.json({message: 'User created!'});
-      });//End save
-    })//End Post
 
     //GET all users at /api/users
     .get(function(req, res){
@@ -134,7 +148,6 @@ module.exports = function(app, express){
         res.json(users);
       });
     });//End Get
-
 
 
   //routes that end with /users:user_id --------------------
@@ -188,7 +201,7 @@ module.exports = function(app, express){
     });
 
     //API ROUTES SURF
-    // ====================================================================
+    // ====================================================================================
     //routes that end with /surf --------------------
 
     apiRouter.route('/surf')
