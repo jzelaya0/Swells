@@ -52,13 +52,15 @@ module.exports = function(app, express){
     });
   });//End Post authenticate
 
-  apiRouter.route('/users')
 
+
+  //API USERS ROUTE  (Create User)
+  // ====================================================================================
   //routes that end with /users --------------------
   //create a user before the token Middleware so that a new user could be created
 
   //CREATE a user on /api/users
-  .post(function(req, res){
+  apiRouter.post('/users', function(req, res){
     //creat a new user instance from User model
     var user = new User();
 
@@ -79,7 +81,7 @@ module.exports = function(app, express){
       }
       res.json({message: 'User created!'});
     });//End save
-  })//End User Post
+  });//End User Post
 
 
 
@@ -228,16 +230,14 @@ module.exports = function(app, express){
 
       })//End Post
 
-      //GET all surf sessions at api/surf
+      //GET surf sessions at api/surf from a specifit user
       .get(function(req, res){
-        // Use the Surf model to find all surf sessions
-        Surf.find({ }, function(err, surfSesh) {
-            if (err)
-              res.send(err);
+        Surf.find({user_id: req.user._id},function(err, surfSesh){
+          if(err) res.send(err);
+          res.json(surfSesh);
+        })
 
-            res.json(surfSesh);
-          });
-      })//
+      });//
 
 
     return apiRouter;
