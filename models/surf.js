@@ -10,7 +10,7 @@ var SurfSchema = new Schema({
   latitude: Number,
   comment: String,
   created: { type: Date, default: Date.now },
-  userId: String
+  user_id: {type: Schema.ObjectId, ref: 'User'}
 });
 
 var Surf = mongoose.model('Surf', SurfSchema);

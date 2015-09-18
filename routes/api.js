@@ -198,7 +198,7 @@ module.exports = function(app, express){
         surf.longitude = req.body.longitude;
         surf.latitude = req.body.latitude;
         surf.comment = req.body.comment;
-        // surf.userId = req.user._id;
+        surf.user_id = req.user._id;
 
         //save user and check for errors
         surf.save(function(err){
