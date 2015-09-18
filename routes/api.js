@@ -235,9 +235,23 @@ module.exports = function(app, express){
         Surf.find({user_id: req.user._id},function(err, surfSesh){
           if(err) res.send(err);
           res.json(surfSesh);
-        })
+        });
 
-      });//
+      });//End Get
+
+    //routes that end with /surf/:surf_id --------------------
+    apiRouter.route('/surf/:surf_id')
+      .get(function(req, res){
+        Surf.find({user_id: req.user._id, _id:req.params.surf_id}, function(err,surf){
+          if(err) res.send(err);
+
+          res.json(surf);
+        });//end find
+
+      })//Eng Get
+
+
+
 
 
     return apiRouter;
