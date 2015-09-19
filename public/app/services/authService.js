@@ -92,7 +92,7 @@ angular.module('authService', [])
 
       //If token exists then add it to the header as x-access-token
       if(token)
-        config.header['x-access-token'] = token;
+        config.headers['x-access-token'] = token;
 
       return config;
     };
