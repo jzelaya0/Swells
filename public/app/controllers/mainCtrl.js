@@ -13,7 +13,7 @@ angular.module('mainCtrl', [])
       //get user information on a page load
       Auth.getUser()
         .then(function(data){
-          vm.user = data;
+          vm.user = data.data;
         });
     });
 
@@ -28,12 +28,7 @@ angular.module('mainCtrl', [])
         .success(function(data){
           vm.processing = false;
 
-          //get user information after logging in
-          Auth.getUser()
-            .then(function(data){
-              vm.user = data.data;
-            });
-
+        
           //if a user successfully logs in, redirect to users page(temporary);
           $location.path('/users');
         });
