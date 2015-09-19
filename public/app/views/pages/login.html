@@ -17,6 +17,11 @@
         <input type="password" class="form-control" placeholder="Enter Password" ng-model="login.loginData.password">
       </div>
 
+      <!-- Login Error -->
+      <div class="alert alert-danger" ng-if="login.error">
+        {{login.error}}
+      </div>
+
       <!-- Login Button -->
       <button type="submit" class="btn btn-block btn-primary">
         <!-- Show Login -->

@@ -23,20 +23,25 @@ angular.module('mainCtrl', [])
     vm.doLogin = function(){
       vm.processing = true;
 
+      //Clear Error
+      vm.error = '';
+
       //call the Auth.login() function
       Auth.login(vm.loginData.username, vm.loginData.password)
         .success(function(data){
           vm.processing = false;
 
-        
           //if a user successfully logs in, redirect to users page(temporary);
-          $location.path('/users');
+          if(data.success)
+            $location.path('/users');
+          else
+            vm.error = data.message;
         });
     };//End doLogin
 
     //function to handle log out
     vm.doLogout = function(){
       Auth.logout();
-      $location.path('/')
+      $location.path('/');
     };//End doLogout
   });//End mainCtrl
