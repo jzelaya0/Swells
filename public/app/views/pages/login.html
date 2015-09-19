@@ -13,12 +13,19 @@
 
       <!-- Password Input -->
       <div class="form-group">
-        <label>Username</label>
-        <input type="text" class="form-control" placeholder="Enter Password" ng-model="login.loginData.password">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Enter Password" ng-model="login.loginData.password">
       </div>
 
       <!-- Login Button -->
-      <button type="submit" class="btn btn-block btn-primary"><span>Login</span></button>
+      <button type="submit" class="btn btn-block btn-primary">
+        <!-- Show Login -->
+        <span ng-if="!login.processing">Login</span>
+        <!-- Show spinner animation when loging in -->
+        <span ng-if="login.processing" class="spinner">
+          <span class="glyphicon glyphicon-repeat"></span>
+        </span>
+      </button>
 
     </form>
     <!-- End Login Form -->
