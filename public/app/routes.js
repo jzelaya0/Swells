@@ -15,6 +15,12 @@ angular.module('appRoutes', ['ngRoute'])
       controllerAs: 'login'
     })
 
+    .when('/signup',{
+      templateUrl: 'app/views/pages/signup.html',
+      controller: 'userCreateController',
+      controllerAs: 'signup'
+    })
+
     //Remove hash in the Url
     $locationProvider.html5Mode(true);
   })//End config

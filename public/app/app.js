@@ -3,7 +3,9 @@ angular.module('swellsApp', [
   // 'ngAnimate',
   'appRoutes',
   'authService',
-  'mainCtrl'
+  'userService',
+  'mainCtrl',
+  'userCtrl'
 ])
   //application configuration to integrate tokens into our requests
   .config(function($httpProvider){

@@ -1,5 +1,5 @@
 //./public/app/controllers/mainCtrl.js
-angular.module('mainCtrl', [])
+angular.module('mainCtrl', ['userService'])
   .controller('mainController', function($rootScope, $location, Auth){
     var vm = this;
 

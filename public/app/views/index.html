@@ -14,8 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.min.js"></script>
     <!-- Controllers -->
     <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
     <!-- Services -->
     <script src="app/services/authService.js"></script>
+    <script src="app/services/userService.js"></script>
     <!-- Main Angular Files -->
     <script src="app/routes.js"></script>
     <script src="app/app.js"></script>
@@ -38,7 +40,7 @@
           </ul>
           <!-- Sign Up, Login, Username, Logout -->
           <ul class="nav navbar-nav navbar-right">
-            <li ng-if="!main.loggedIn"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li ng-if="!main.loggedIn"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li ng-if="!main.loggedIn"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li ng-if="main.loggedIn" class="navbar-text"> Sup, {{main.user.username}}!</li>
             <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Log Out</a></li>
