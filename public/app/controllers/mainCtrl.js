@@ -31,9 +31,9 @@ angular.module('mainCtrl', ['userService'])
         .success(function(data){
           vm.processing = false;
 
-          //if a user successfully logs in, redirect to users page(temporary);
+          //if a user successfully logs in, redirect to user's home page
           if(data.success)
-            $location.path('/users');
+            $location.path('/home');
           else
             vm.error = data.message;
         });
