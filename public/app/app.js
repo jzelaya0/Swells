@@ -5,7 +5,8 @@ angular.module('swellsApp', [
   'authService',
   'userService',
   'mainCtrl',
-  'userCtrl'
+  'userCtrl',
+  'ngMessages'
 ])
   //application configuration to integrate tokens into our requests
   .config(function($httpProvider){

@@ -3,24 +3,59 @@
     <h1>Sign Up</h1>
 
     <!-- Sign Up Form -->
-    <form ng-submit='signup.saveUser()'>
+    <form ng-submit='signup.saveUser()' name='signUpForm' novalidate>
 
       <!-- Name Input -->
       <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" placeholder="Enter Your Name" ng-model='signup.userData.name'>
+        <input type="text"
+              class="form-control"
+              name="name"
+              placeholder="Enter Your Name"
+              ng-model='signup.userData.name'
+              required>
+        <!-- Ng-messages Name required -->
+        <div class="help-block" ng-messages='signUpForm.name.$error' ng-show="signUpForm.name.$touched">
+          <p class="bg-danger" ng-message='required'>Name is required</p>
+        </div>
       </div>
 
       <!-- Username Input -->
       <div class="form-group">
         <label>Username</label>
-        <input type="text" class="form-control" placeholder="Enter Username" ng-model='signup.userData.username'>
+        <input type="text"
+              class="form-control"
+              name='username'
+              placeholder="Enter Username"
+              ng-model='signup.userData.username'
+              ng-minlength="5"
+              ng-maxlength="15"
+              required>
+              <!-- Ng-messages UserName length & required -->
+          <div class="help-block" ng-messages='signUpForm.username.$error' ng-show="signUpForm.username.$touched">
+            <p class="bg-danger" ng-message='required'>Username is required</p>
+            <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
+            <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
+          </div>
       </div>
 
       <!-- Password Input -->
       <div class="form-group">
         <label>Password</label>
-        <input type="password" class="form-control" placeholder="Enter Password" ng-model='signup.userData.password'>
+        <input type="password"
+              class="form-control"
+              name="password"
+              placeholder="Enter Password"
+              ng-model='signup.userData.password'
+              ng-minlength="6"
+              ng-maxlength="20"
+              required>
+              <!-- Ng-messages UserName length & required -->
+          <div class="help-block" ng-messages='signUpForm.password.$error' ng-show="signUpForm.password.$touched">
+            <p class="bg-danger" ng-message='required'>Password is required</p>
+            <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
+            <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
+          </div>
       </div>
 
 
