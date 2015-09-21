@@ -1,6 +1,6 @@
 //mapCtrl.js
 
-angular.module('mapCtrl',[])
-  .controller('mapController', function(){
-        
+angular.module('mapCtrl',['mapService'])
+  .controller('mapController', function(Map){
+
   })
