@@ -5,8 +5,10 @@ angular.module('swellsApp', [
   'authService',
   'userService',
   'surfService',
+  'mapService',
   'mainCtrl',
   'userCtrl',
+  'mapCtrl',
   'ngMessages'
 ])
   //application configuration to integrate tokens into our requests
