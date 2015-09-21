@@ -6,7 +6,7 @@ angular.module('appRoutes', ['ngRoute'])
 
     //homepage route
     .when('/',{
-      templateUrl : 'app/views/pages/home.html'
+      templateUrl : 'app/views/pages/swells.html'
     })
 
     .when('/login',{
@@ -19,6 +19,10 @@ angular.module('appRoutes', ['ngRoute'])
       templateUrl: 'app/views/pages/signup.html',
       controller: 'userCreateController',
       controllerAs: 'signup'
+    })
+
+    .when('/home', {
+      templateUrl: 'app/views/pages/home.html'
     })
 
     //Remove hash in the Url
