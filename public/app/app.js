@@ -4,6 +4,7 @@ angular.module('swellsApp', [
   'appRoutes',
   'authService',
   'userService',
+  'surfService',
   'mainCtrl',
   'userCtrl',
   'ngMessages'
