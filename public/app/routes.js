@@ -22,9 +22,11 @@ angular.module('appRoutes', ['ngRoute'])
     })
 
     .when('/home', {
-      templateUrl: 'app/views/pages/home.html'
-    })
+      templateUrl: 'app/views/pages/home.html',
+      controller: 'mapController',
+      controllerAs: 'map'
+    });
 
     //Remove hash in the Url
     $locationProvider.html5Mode(true);
-  })//End config
+  });//End config
