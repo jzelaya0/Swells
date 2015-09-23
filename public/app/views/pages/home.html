@@ -1,12 +1,41 @@
 <div class="container-fluid">
-  <div id="map" class="jumbotron">
+  <!-- GOOGLE MAPS -->
+  <div id="map" class="well"></div>
 
-  </div>
-
+  <!-- SHOW / CLEAR ALL SURF SESSION MARKERS -->
   <div class="well">
-  <button type="button" class='btn btn-default' ng-if='map.showClearButtons == true' ng-click="map.displaySurfSession()">Show My Sessions</button>
-
-  <button type="button" class='btn btn-danger' ng-if='map.showClearButtons == false' ng-click="map.removeSurfSessions()">Clear Map</button>
-
+    <button type="button" class='btn btn-default' ng-if='map.showClearButtons == true' ng-click="map.displaySurfSession()">Show My Sessions</button>
+    <button type="button" class='btn btn-danger' ng-if='map.showClearButtons == false' ng-click="map.removeSurfSessions()">Clear Map</button>
   </div>
+
+  <!-- NEW SURF SESSION FORM -->
+  <div class="row col-sm-6 col-sm-offset-3">
+    <form ng-submit="map.surfForm()" class="well">
+
+      <!-- Surf Title Input -->
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" placeholder="What's your spot's name?" ng-model="map.surfData.title">
+      </div>
+
+      <!-- Surf Comment Input -->
+      <div class="form-group">
+        <label>Comment</label>
+        <input type="text" class="form-control" placeholder="Comment?" ng-model="map.surfData.comment">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-block btn-success">
+        <!-- Show Submit -->
+        <!-- <span ng-if="!map.processing">Submit</span> -->
+        <!-- Show spinner animation when submitting -->
+        <!-- <span ng-if="map.processing" class="spinner"> -->
+        Submit
+          <span class="glyphicon glyphicon-repeat"></span>
+        </span>
+      </button>
+
+    </form>
+  </div>
+
 </div>

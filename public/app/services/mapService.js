@@ -7,6 +7,7 @@ angular.module('mapService', ['surfService'])
     var mapFactory = {};
     var markers = [];
     var infoWindow = new google.maps.InfoWindow();
+    var currentMarker = false;
 
 
     // =============================
@@ -42,7 +43,18 @@ angular.module('mapService', ['surfService'])
     mapFactory.clearMap = function(){
       deleteMarkers();
       console.log(markers);
-    }
+    };
+
+    mapFactory.addLocation = function(surfData){
+      Surf.create(surfData)
+        .success(function(data){
+          console.log(data);
+          var dataResponse = data;
+
+          return data;
+        })
+
+    };
 
 
 
@@ -120,9 +132,14 @@ angular.module('mapService', ['surfService'])
 
         // This event listener will call addMarker() when the map is clicked.
           map.addListener('click', function(event) {
-            addMarker(event.latLng);
-            console.log(event.latLng);
-            console.log('Markers:' + markers);
+            //Allow for one marker to be placed at a time
+                if(markers.length === 0){
+                  addMarker(event.latLng);
+                  console.log('Markers:' + markers + event.latLng);
+                }else {
+                  deleteMarkers();
+                  console.log('Emptied Markers');
+                }
           });
 
           // HTML5 geolocation - Will auto position to user's locaitons

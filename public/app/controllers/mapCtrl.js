@@ -12,11 +12,21 @@ angular.module('mapCtrl',['mapService'])
 
     };
 
+    //Clear all surf session markers from the map
     vm.removeSurfSessions = function(){
       Map.clearMap();
       vm.showClearButtons = true;
 
     };
+
+    //Submit form for a new surf session
+    vm.surfForm = function(surfdata){
+      //Grab surf data from from form
+      //Send to mapService to POST
+      Map.addLocation(vm.surfData)
+
+
+    }
 
 
   });
