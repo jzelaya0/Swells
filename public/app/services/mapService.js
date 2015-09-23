@@ -6,36 +6,56 @@ angular.module('mapService', ['surfService'])
     //Create an empty mapService object;
     var mapFactory = {};
     var markers = [];
+    var infoWindow = new google.maps.InfoWindow();
 
     //Get all Surf Session locations from Ajax Requst
     mapFactory.getLocations = function(){
       Surf.all()
         .success(function(event){
+
           for (var i = 0; i < event.length; i++) {
             console.log(event[i]);
 
             var title = event[i].title;
             var latitude = event[i].latitude;
             var longitude = event[i].longitude;
+            var comment = event[i].comment;
 
             var latLng = new google.maps.LatLng(latitude, longitude);
 
+
             //Set a new Marker for each location
-            setMarker(latLng);
-          }
+            setMarker(latLng, title, comment);
+
+
+          }//End for loop
         });//End success
     };//End getLocations
 
 
       //Function to Set Markers on locations
       // ===================================
-      function setMarker(location, title){
+      function setMarker(location, title, comment){
         var newMarker = new google.maps.Marker({
           position: location,
           map: map,
-          title: title
-        })
+          title: title,
+          comment: comment
+        });
+
+        var infoWindowContent = '<div class="alert alert-info"' +
+            "<h2>" + newMarker.title + "</h2>" +
+            "<p>" + newMarker.comment + "</p>" + "<div>";
+
+        google.maps.event.addListener(newMarker, 'click', function(){
+          infoWindow.setContent(infoWindowContent);
+          infoWindow.open(map,newMarker);
+        });
+
+
       }
+
+
 
 
       // =============================================
@@ -50,6 +70,12 @@ angular.module('mapService', ['surfService'])
 
         map = new google.maps.Map(document.getElementById('map'),
         mapOptions);
+
+
+        //Event Listener That logs Lat and Long on click
+        google.maps.event.addListener(map, 'click', function(e){
+          console.log(e.latLng);
+        });
 
 
 
