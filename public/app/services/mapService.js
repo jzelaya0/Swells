@@ -11,51 +11,82 @@ angular.module('mapService', ['surfService'])
     //Get all Surf Session locations from Ajax Requst
     mapFactory.getLocations = function(){
       Surf.all()
-        .success(function(event){
+        .success(function(dataResponse){
 
-          for (var i = 0; i < event.length; i++) {
-            console.log(event[i]);
+          for (var i = 0; i < dataResponse.length; i++) {
+            console.log(dataResponse[i]);
 
-            var title = event[i].title;
-            var latitude = event[i].latitude;
-            var longitude = event[i].longitude;
-            var comment = event[i].comment;
+            var title = dataResponse[i].title;
+            var latitude = dataResponse[i].latitude;
+            var longitude = dataResponse[i].longitude;
+            var comment = dataResponse[i].comment;
 
             var latLng = new google.maps.LatLng(latitude, longitude);
 
-
             //Set a new Marker for each location
-            setMarker(latLng, title, comment);
-
+            addMarker(latLng,title,comment);
 
           }//End for loop
+          console.log(markers);
         });//End success
     };//End getLocations
 
 
       //Function to Set Markers on locations
       // ===================================
-      function setMarker(location, title, comment){
-        var newMarker = new google.maps.Marker({
+      // Adds a marker to the map and push to the array.
+      function addMarker(location,title,comment) {
+        var marker = new google.maps.Marker({
           position: location,
           map: map,
           title: title,
           comment: comment
         });
-
         var infoWindowContent = '<div class="alert alert-info"' +
-            "<h2>" + newMarker.title + "</h2>" +
-            "<p>" + newMarker.comment + "</p>" + "<div>";
+            "<h2>" + marker.title + "</h2>" +
+            "<p>" + marker.comment + "</p>" + "<div>";
 
-        google.maps.event.addListener(newMarker, 'click', function(){
+        google.maps.event.addListener(marker, 'click', function(){
           infoWindow.setContent(infoWindowContent);
-          infoWindow.open(map,newMarker);
+          infoWindow.open(map,marker);
         });
 
 
+        markers.push(marker);
       }
 
 
+      // =============================
+      // Set map all markers in array
+      // =============================
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+
+      // =============================
+      // Removes the Markers from the map only
+      // =============================
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      // =============================
+      // Display any markers that are in the array
+      // =============================
+      function showMarkers() {
+        setMapOnAll(map);
+      }
+
+      // =============================
+      // Delete all markers in the array
+      // =============================
+      function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+      }
 
 
       // =============================================
@@ -71,13 +102,12 @@ angular.module('mapService', ['surfService'])
         map = new google.maps.Map(document.getElementById('map'),
         mapOptions);
 
-
-        //Event Listener That logs Lat and Long on click
-        google.maps.event.addListener(map, 'click', function(e){
-          console.log(e.latLng);
-        });
-
-
+        // This event listener will call addMarker() when the map is clicked.
+          map.addListener('click', function(event) {
+            addMarker(event.latLng);
+            console.log(event.latLng);
+            console.log('Markers:' + markers);
+          });
 
 
       return mapFactory;
