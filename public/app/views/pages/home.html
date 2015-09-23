@@ -2,5 +2,11 @@
   <div id="map" class="jumbotron">
 
   </div>
-  <button type="button" class='btn btn-default' ng-click="map.displaySurfSession()">Get Sessions</button>
+
+  <div class="well">
+  <button type="button" class='btn btn-default' ng-if='map.showClearButtons == true' ng-click="map.displaySurfSession()">Show My Sessions</button>
+
+  <button type="button" class='btn btn-danger' ng-if='map.showClearButtons == false' ng-click="map.removeSurfSessions()">Clear Map</button>
+
+  </div>
 </div>

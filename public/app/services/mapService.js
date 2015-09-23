@@ -8,7 +8,10 @@ angular.module('mapService', ['surfService'])
     var markers = [];
     var infoWindow = new google.maps.InfoWindow();
 
-    //Get all Surf Session locations from Ajax Requst
+
+    // =============================
+    // Get all Surf Session locations from Ajax Requst
+    // =============================
     mapFactory.getLocations = function(){
       Surf.all()
         .success(function(dataResponse){
@@ -32,8 +35,21 @@ angular.module('mapService', ['surfService'])
     };//End getLocations
 
 
-      //Function to Set Markers on locations
-      // ===================================
+    // =============================
+    // Clear The Map locations
+    // =============================
+    // Clears the Map of Markers and markers array
+    mapFactory.clearMap = function(){
+      deleteMarkers();
+      console.log(markers);
+    }
+
+
+
+
+      // =============================
+      // Function to Set Markers on locations
+      // =============================
       // Adds a marker to the map and push to the array.
       function addMarker(location,title,comment) {
         var marker = new google.maps.Marker({
@@ -108,6 +124,30 @@ angular.module('mapService', ['surfService'])
             console.log(event.latLng);
             console.log('Markers:' + markers);
           });
+
+          // HTML5 geolocation - Will auto position to user's locaitons
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              map.setCenter(pos);
+            }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+            } else {
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                                  'Error: The Geolocation service failed.' :
+                                  'Error: Your browser doesn\'t support geolocation.');
+          }
 
 
       return mapFactory;
