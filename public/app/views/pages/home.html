@@ -4,13 +4,13 @@
 
   <!-- SHOW / CLEAR ALL SURF SESSION MARKERS -->
   <div class="well">
-    <button type="button" class='btn btn-default' ng-if='map.showClearButtons == true' ng-click="map.displaySurfSession()">Show My Sessions</button>
-    <button type="button" class='btn btn-danger' ng-if='map.showClearButtons == false' ng-click="map.removeSurfSessions()">Clear Map</button>
+    <button type="button" class='btn btn-default' ng-if="map.buttonSwitch == true" ng-click="map.displaySurfSessions()">Show My Sessions</button>
+    <button type="button" class='btn btn-danger' ng-if="map.buttonSwitch == false" ng-click="map.removeSurfSessions()">Clear Map</button>
   </div>
 
   <!-- NEW SURF SESSION FORM -->
   <div class="row col-sm-6 col-sm-offset-3">
-    <form ng-submit="map.surfForm()" class="well">
+    <form ng-submit="map.saveSurfSession()" class="well">
 
       <!-- Surf Title Input -->
       <div class="form-group">
@@ -24,13 +24,19 @@
         <input type="text" class="form-control" placeholder="Comment?" ng-model="map.surfData.comment">
       </div>
 
+
+      <div class="alert alert-success" ng-if='map.message'>
+        <p class="text-center">
+          {{map.message}}
+        </p>
+      </div>
+
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-block btn-success">
+      <button type="submit" class="btn btn-block btn-info">
         <!-- Show Submit -->
-        <!-- <span ng-if="!map.processing">Submit</span> -->
+        <span ng-if="!map.processing">Submit</span>
         <!-- Show spinner animation when submitting -->
-        <!-- <span ng-if="map.processing" class="spinner"> -->
-        Submit
+        <span ng-if="map.processing" class="spinner">
           <span class="glyphicon glyphicon-repeat"></span>
         </span>
       </button>
