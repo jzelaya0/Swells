@@ -4,7 +4,7 @@ angular.module('mapCtrl',['surfService'])
   .controller('mapController', function(Surf){
     var vm = this;
     var markers = [];
-    var newMarkers = [];
+    var newMarker;
     var infoWindow = new google.maps.InfoWindow();
 
     vm.buttonSwitch = true;
@@ -14,24 +14,25 @@ angular.module('mapCtrl',['surfService'])
     vm.displaySurfSessions  = function(){
       Surf.all()
         .success(function(dataResponse){
-
+          //Loop through the database objects
           for (var i = 0; i < dataResponse.length; i++) {
             console.log(dataResponse[i]);
-
+            //Set properties of objects into varibles for later use
             var title = dataResponse[i].title;
             var latitude = dataResponse[i].latitude;
             var longitude = dataResponse[i].longitude;
             var comment = dataResponse[i].comment;
-
+            //Set the latitude and longitude
             var latLng = new google.maps.LatLng(latitude, longitude);
 
             //Set a new Marker for each location
             addMarker(latLng,title,comment);
 
+
           }//End for loop
           console.log(markers);
 
-          vm.buttonSwitch = !vm.buttonSwitch
+          vm.buttonSwitch = !vm.buttonSwitch;
         });//End success
 
 
@@ -54,12 +55,15 @@ angular.module('mapCtrl',['surfService'])
     // Submit form for a new surf session
     // =============================
 
-    vm.saveSurfSession = function(surfdata){
+    vm.saveSurfSession = function(){
       //Spinner animation
       vm.processing = true;
 
       //Message to display on succesful post
       vm.message = '';
+
+      vm.surfData.latitude = newMarker.latitude;
+      vm.surfData.longitude = newMarker.longitude;
 
 
       Surf.create(vm.surfData)
@@ -68,6 +72,8 @@ angular.module('mapCtrl',['surfService'])
             vm.processing = false;
             //Assign message to server response
             vm.message = data.message;
+            console.log(vm.surfData);
+            deleteMarkers();
           });
 
     };
@@ -88,15 +94,22 @@ angular.module('mapCtrl',['surfService'])
         title: title,
         comment: comment
       });
+      //Set the Lat & Lng of the new marker to use in saveSurfSession()
+      newMarker = {latitude: marker.position.H , longitude: marker.position.L};
+      map.panTo(location);
+
+      //Set the IW Content for each marker
       var infoWindowContent = '<div class="alert alert-info"' +
           "<h2>" + marker.title + "</h2>" +
           "<p>" + marker.comment + "</p>" + "<div>";
 
+      //Create a new click event listerner for each marker
       google.maps.event.addListener(marker, 'click', function(){
         infoWindow.setContent(infoWindowContent);
         infoWindow.open(map,marker);
       });
 
+      //Push the new marker into the markers array
       markers.push(marker);
     }
 
@@ -143,7 +156,7 @@ angular.module('mapCtrl',['surfService'])
           zoom: 8,
           mapTypeId: google.maps.MapTypeId.TERRAIN
       };
-
+      //Create a new google map
       map = new google.maps.Map(document.getElementById('map'),
       mapOptions);
 
@@ -153,33 +166,32 @@ angular.module('mapCtrl',['surfService'])
           // Allow for one marker to be placed at a time
           if(markers.length === 0){
             addMarker(event.latLng);
-            console.log(markers);
+            // console.log(event.latLng);
           }
-
         });
 
         // HTML5 geolocation - Will auto position to user's locaitons
-        // if (navigator.geolocation) {
-        //   navigator.geolocation.getCurrentPosition(function(position) {
-        //     var pos = {
-        //       lat: position.coords.latitude,
-        //       lng: position.coords.longitude
-        //     };
-        //     map.setCenter(pos);
-        //   }, function() {
-        //     handleLocationError(true, infoWindow, map.getCenter());
-        //   });
-        //   } else {
-        //     // Browser doesn't support Geolocation
-        //     handleLocationError(false, infoWindow, map.getCenter());
-        //   }
-        //
-        //
-        // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        //   infoWindow.setPosition(pos);
-        //   infoWindow.setContent(browserHasGeolocation ?
-        //                         'Error: The Geolocation service failed.' :
-        //                         'Error: Your browser doesn\'t support geolocation.');
-        // }
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+        }
 
   });//End mapController
