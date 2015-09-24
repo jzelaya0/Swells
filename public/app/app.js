@@ -5,7 +5,6 @@ angular.module('swellsApp', [
   'authService',
   'userService',
   'surfService',
-  'mapService',
   'mainCtrl',
   'userCtrl',
   'mapCtrl',
