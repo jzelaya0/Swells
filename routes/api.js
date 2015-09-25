@@ -255,18 +255,22 @@ module.exports = function(app, express){
       //UPDATE a surf session from a user at /surf/:surf_id
       .put(function(req, res){
         //Use the Surf model to find a specific surf session
-        Surf.update({user_id: req.user._id, _id: req.params.surf_id},{
-          //
-          title: req.body.title,
-          longitude: req.body.longitude,
-          latitude: req.body.latitude,
-          comment: req.body.comment},
+        Surf.findById(req.params.surf_id, function(err, surf){
+          if(err) res.send(err);
 
-           function(err,surf){
-             if(err) res.send(err);
+          //Only save if the data is new or changed
+          if(req.body.title) surf.title = req.body.title;
+          if(req.body.comment) surf.comment = req.body.comment;
+          if(req.body.longitude) surf.longitude = req.body.longitude;
+          if(req.body.latitude) surf.latitude = req.body.latitude;
 
-             res.json({message: surf + 'updated!'});
-          });
+          //Save the surf session
+          surf.save(function(err){
+            if(err) res.send(err);
+
+            res.json({message: "Updated!"});
+          });//End Save
+        });//End findById
       })//End Put
 
       //DELETE a surf session from a user at /surf/:surf_id
@@ -279,7 +283,7 @@ module.exports = function(app, express){
             res.json({message: 'Surf Session Succesfully Deleted!'});
           }
         );
-      })//End Delete
+      });//End Delete
 
 
     return apiRouter;
