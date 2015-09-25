@@ -21,11 +21,12 @@
     <script src="app/controllers/mainCtrl.js"></script>
     <script src="app/controllers/userCtrl.js"></script>
     <script src="app/controllers/mapCtrl.js"></script>
+    <script src="app/controllers/surfCtrl.js"></script>
+
     <!-- Services -->
     <script src="app/services/authService.js"></script>
     <script src="app/services/userService.js"></script>
     <script src="app/services/surfService.js"></script>
-    <script src="app/services/mapService.js"></script>
 
 
     <!-- Main Angular Files -->
@@ -44,7 +45,7 @@
           <!-- App Navigation -->
           <ul class="nav navbar-nav" ng-if='main.loggedIn'>
             <li class="active"><a href="/home">Home</a></li>
-            <li><a href="#">Page 1</a></li>
+            <li><a href="/sessions">Surf Sessions</a></li>
             <li><a href="#">Page 2</a></li>
             <li><a href="#">Page 3</a></li>
           </ul>

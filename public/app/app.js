@@ -5,9 +5,9 @@ angular.module('swellsApp', [
   'authService',
   'userService',
   'surfService',
-  'mapService',
   'mainCtrl',
   'userCtrl',
+  'surfCtrl',
   'mapCtrl',
   'ngMessages'
 ])

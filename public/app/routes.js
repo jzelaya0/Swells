@@ -25,6 +25,12 @@ angular.module('appRoutes', ['ngRoute'])
       templateUrl: 'app/views/pages/home.html',
       controller: 'mapController',
       controllerAs: 'map'
+    })
+
+    .when('/sessions',{
+      templateUrl: 'app/views/pages/surf_sessions/all.html',
+      controller: 'surfController',
+      controllerAs: 'surf'
     });
 
     //Remove hash in the Url
