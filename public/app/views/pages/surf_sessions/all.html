@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>
+    My Surf Sessions
+  </h1>
+</div>
+
+
+<!-- LOADING MESSAGE -->
+<div class="jumbotron text-center" ng-show="surf.processing">
+  <span class="glyphicon glyphicon-repeat spinner"></span>
+  <p>
+    Loading Surf Sessions...
+  </p>
+</div>
+
+<table class="table table-bordered table-striped" ng-show='surf.surfSessions'>
+  <thead>
+    <tr>
+      <th><strong>Title</strong></th>
+      <th><strong>Comment</strong></th>
+      <th class="col-sm-2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- LOOP THROUGH THE LIST OF SURF SESSIONS -->
+    <tr ng-repeat="sesh in surf.surfSessions">
+      <td>{{sesh.title}}</td>
+      <td>{{sesh.comment}}</td>
+      <td class="col-sm-2">
+        <a href="/sessions/{{sesh._id}}" class="btn btn-warning">Edit</a>
+        <a href="#" ng-click="surf.deleteSurfSession(sesh._id)" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
