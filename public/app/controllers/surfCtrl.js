@@ -39,28 +39,24 @@ angular.module('surfCtrl', ['surfService'])
   //Controller to use with edit surf page
   .controller('surfEditController', function($routeParams, Surf){
     var vm = this;
-    //$routeParams grabs the surd id data from the URL
-    Surf.get($routeParams.surf_id)
-      .success(function(data){
-        vm.surfData = data;
-      });//End get single surf
 
     //Function to save the surf session
     vm.saveSurfSession = function(){
+      //Animatiom for Spinner
       vm.processing = true;
-      vm.message = '';
 
+      //Message for successful update
+      vm.message = '';
       //Call the surfService to update the surf session
       Surf.update($routeParams.surf_id, vm.surfData)
         .success(function(data){
           vm.processing = false;
-
           //Clear the form
           vm.surfData = {};
 
           //bind the message from the api to vm.message
-          console.log(data);
-          vm.message = data.messsage;
+          console.log(data.message);
+          vm.message = data.message;
         });
 
     };
