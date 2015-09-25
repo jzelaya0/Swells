@@ -57,7 +57,7 @@ module.exports = function(app, express){
   //API USERS ROUTE  (Create User)
   // ====================================================================================
   //routes that end with /users --------------------
-  //create a new user before the token Middleware 
+  //create a new user before the token Middleware
 
   //CREATE a user on /api/users
   apiRouter.post('/users', function(req, res){

@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>Edit</h1>
+</div>
+
+<!-- FORM TO EDIT SURF SESSION -->
+<form class="form-horizontal" ng-submit="surf.saveSurfSession()">
+
+  <!-- SURF TITLE -->
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" ng-model="surf.surfData.title">
+    </div>
+  </div>
+
+  <!-- SURF Comment -->
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Comment</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" ng-model="surf.surfData.comment">
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <button type="submit" class="btn btn-success btn-md">Update Surf Session</button>
+      <a href="/sessions" class="btn btn-default btn-md pull-right">Back</a>
+    </div>
+  </div>
+
+</form>
+
+<!-- Message Return from API -->
+<div class="row show-hide-message" ng-show='surf.message'>
+  <div class="col-sm-6 col-sm-offset-2">
+    <div class="alert alert-info">
+        {{surf.message}}
+    </div>
+  </div>
+
+</div>
