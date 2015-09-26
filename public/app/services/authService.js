@@ -90,9 +90,12 @@ angular.module('authService', [])
       //grab the token
       var token = AuthToken.getToken();
 
+       var isWeatherAPI = config.url.indexOf('api.openweathermap.org') > -1;
+
       //If token exists then add it to the header as x-access-token
-      if(token)
+      if(token && !isWeatherAPI)
         config.headers['x-access-token'] = token;
+        console.log(config);
 
       return config;
     };
