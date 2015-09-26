@@ -1,0 +1,16 @@
+<div class="page-header text-center">
+  <h1>Weather</h1>
+</div>
+
+<div class="row col-sm-6 col-sm-offset-4">
+  <!-- FIND FORECAST -->
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="control-label">Get Forecast</label>
+      <input type="number" class="form-control" placeholder="e.g. 90210" ng-model='zip'>
+    </div>
+    <button type="submit" class="btn btn-default" ng-click="weather.findWeather(zip)">Find</button>
+  </form>
+  <!-- Display what user is entering -->
+  <p ng-show="zip">Searching zipcode: {{zip}}</p>
+</div>
