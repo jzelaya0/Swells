@@ -3,25 +3,22 @@
 angular.module('weatherCtrl', ['weatherService'])
   .controller('weatherController', function(Weather){
     var vm = this;
-    // //Function that defaults to Santa Monica Weather
-    function fetchWeather(zip){
-      Weather.getWeather(zip)
-        .then(function(data){
-          //Bind data on success to vm.location
+    // //Function to let user find weather report
+    vm.findWeather = function(){
+
+      vm.place = '';
+
+      //Get the weather
+      Weather.getWeather(vm.city)
+        .success(function(data){
+          //Bind data on success to vm.place
           console.log(data);
-          vm.location = data;
+          vm.place = data;
+
+          //Clear the form
+          vm.city = ''
         });
     }
-
-    //Invoke the default weathe location
-    fetchWeather('90401');
-
-    vm.findWeather = function(zip){
-      //Set location to be empty
-      vm.location = '';
-      //Call the default function and pass the zipcode
-      fetchWeather(zip);
-    };
 
 
   });//End weatherController
