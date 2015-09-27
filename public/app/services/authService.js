@@ -90,9 +90,13 @@ angular.module('authService', [])
       //grab the token
       var token = AuthToken.getToken();
 
+      //Reset Headers for other API request
+       var isWeatherAPI = config.url.indexOf('api.wunderground.com') > -1;
+
       //If token exists then add it to the header as x-access-token
-      if(token)
+      if(token && !isWeatherAPI)
         config.headers['x-access-token'] = token;
+        // console.log(config);
 
       return config;
     };
@@ -106,7 +110,7 @@ angular.module('authService', [])
 
       //return the errors from the server as a promise
       return $q.reject(response);
-    }
+    };
 
     //return interceptorFactory
     return interceptorFactory;

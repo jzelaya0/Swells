@@ -26,6 +26,7 @@ db.once('open', function(data){
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+
 //Config CORS requests
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
