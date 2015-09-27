@@ -9,7 +9,7 @@ angular.module('weatherService', [])
     //Make a request to GET weather by city code
     weatherFactory.getWeather = function(city){
       //Find weather by city
-      return $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + city);
+      return $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial');
     };//end getWeather
 
     //return the weatherFactory;
