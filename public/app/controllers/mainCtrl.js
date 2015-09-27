@@ -33,7 +33,7 @@ angular.module('mainCtrl', ['userService'])
 
           //if a user successfully logs in, redirect to user's home page
           if(data.success)
-            $location.path('/home');
+            $location.path('/map');
           else
             vm.error = data.message;
         });

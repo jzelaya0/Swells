@@ -21,8 +21,8 @@ angular.module('appRoutes', ['ngRoute'])
       controllerAs: 'signup'
     })
 
-    .when('/home', {
-      templateUrl: 'app/views/pages/home.html',
+    .when('/map', {
+      templateUrl: 'app/views/pages/map.html',
       controller: 'mapController',
       controllerAs: 'map'
     })
