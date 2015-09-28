@@ -4,8 +4,9 @@
 
   <!-- SHOW / CLEAR ALL SURF SESSION MARKERS -->
   <div class="well">
-    <button type="button" class='btn btn-default' ng-if="map.buttonSwitch == true" ng-click="map.displaySurfSessions()">Show My Sessions</button>
-    <button type="button" class='btn btn-danger' ng-if="map.buttonSwitch == false" ng-click="map.removeSurfSessions()">Clear Map</button>
+    <!-- SHOW SESSIONS / CLEAR MAP -->
+    <button type="button" class='btn btn-default' ng-click="map.displaySurfSessions()">Show My Sessions</button>
+    <button type="button" class='btn btn-danger pull-right'  ng-click="map.removeSurfSessions()">Clear Map</button>
   </div>
 
   <!-- NEW SURF SESSION FORM -->

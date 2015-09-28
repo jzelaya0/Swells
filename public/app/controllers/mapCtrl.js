@@ -4,37 +4,41 @@ angular.module('mapCtrl',['surfService'])
   .controller('mapController', function(Surf){
     var vm = this;
     var markers = [];
-    var newMarker;
+    var newMarker = null;
     var infoWindow = new google.maps.InfoWindow();
+    vm.removeMarkerMessage = '';
 
-    vm.buttonSwitch = true;
     // =============================
     // Get all Surf Session locations from Ajax Requst
     // =============================
     vm.displaySurfSessions  = function(){
-      Surf.all()
-        .success(function(dataResponse){
-          //Loop through the database objects
-          for (var i = 0; i < dataResponse.length; i++) {
-            console.log(dataResponse[i]);
-            //Set properties of objects into varibles for later use
-            var title = dataResponse[i].title;
-            var latitude = dataResponse[i].latitude;
-            var longitude = dataResponse[i].longitude;
-            var comment = dataResponse[i].comment;
-            //Set the latitude and longitude
-            var latLng = new google.maps.LatLng(latitude, longitude);
+      //If there are no markers in the array, then display the collection
+      if(markers.length === 0){
+        Surf.all()
+          .success(function(dataResponse){
+            //Loop through the database objects
+            for (var i = 0; i < dataResponse.length; i++) {
+              console.log(dataResponse[i]);
+              //Set properties of objects into varibles for later use
+              var title = dataResponse[i].title;
+              var latitude = dataResponse[i].latitude;
+              var longitude = dataResponse[i].longitude;
+              var comment = dataResponse[i].comment;
+              //Set the latitude and longitude
+              var latLng = new google.maps.LatLng(latitude, longitude);
 
-            //Set a new Marker for each location
-            addMarker(latLng,title,comment);
+              //Set a new Marker for each location
+              addMarker(latLng,title,comment);
 
 
-          }//End for loop
-          console.log(markers);
-
-          vm.buttonSwitch = !vm.buttonSwitch;
-        });//End success
-
+            }//End for loop
+            console.log('Markers',markers);
+          });//End success
+        }else {
+          //Marker Must Be Removed
+          vm.removeMarkerMessage = 'Remove Markers';
+          alert("Remove Marker");
+        }
 
     };
 
@@ -42,19 +46,16 @@ angular.module('mapCtrl',['surfService'])
     // Clear The Map locations
     // =============================
     // Clears the Map of Markers and markers array
-
-    //Clear all surf session markers from the map
+    // Clear all surf session markers from the map
     vm.removeSurfSessions = function(){
       deleteMarkers();
       console.log(markers);
-      vm.buttonSwitch = true;
-
     };
 
     // =============================
     // Submit form for a new surf session
     // =============================
-
+    // Save the current marker as a new surf session
     vm.saveSurfSession = function(){
       //Spinner animation
       vm.processing = true;
@@ -62,17 +63,19 @@ angular.module('mapCtrl',['surfService'])
       //Message to display on succesful post
       vm.message = '';
 
+      //Set the new marker's coordinates to pass to the create function
       vm.surfData.latitude = newMarker.latitude;
       vm.surfData.longitude = newMarker.longitude;
 
-
+      //Create a new surf session from surfService
       Surf.create(vm.surfData)
           .success(function(data){
-
+            //Spinning animation on click
             vm.processing = false;
             //Assign message to server response
             vm.message = data.message;
             console.log(vm.surfData);
+            //Clear the map on success
             deleteMarkers();
           });
 
@@ -97,6 +100,8 @@ angular.module('mapCtrl',['surfService'])
       //Set the Lat & Lng of the new marker to use in saveSurfSession()
       newMarker = {latitude: marker.position.H , longitude: marker.position.L};
       map.panTo(location);
+
+      console.log('NewMarker',newMarker);
 
       //Set the IW Content for each marker
       var infoWindowContent = '<div class="alert alert-info"' +
@@ -164,34 +169,37 @@ angular.module('mapCtrl',['surfService'])
       // This event listener will call addMarker() when the map is clicked.
         map.addListener('click', function(event) {
           // Allow for one marker to be placed at a time
-          if(markers.length === 0){
-            addMarker(event.latLng);
-            // console.log(event.latLng);
-          }
+            if(markers.length === 0){
+              addMarker(event.latLng);
+              console.log('Markers',markers);
+            }else {
+              // Tell User to Clear the Map
+              alert('Clear Map');
+            }
         });
 
-        // HTML5 geolocation - Will auto position to user's locaitons
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-
-
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
-          infoWindow.setContent(browserHasGeolocation ?
-                                'Error: The Geolocation service failed.' :
-                                'Error: Your browser doesn\'t support geolocation.');
-        }
+        // // HTML5 geolocation - Will auto position to user's locaitons
+        // if (navigator.geolocation) {
+        //   navigator.geolocation.getCurrentPosition(function(position) {
+        //     var pos = {
+        //       lat: position.coords.latitude,
+        //       lng: position.coords.longitude
+        //     };
+        //     map.setCenter(pos);
+        //   }, function() {
+        //     handleLocationError(true, infoWindow, map.getCenter());
+        //   });
+        //   } else {
+        //     // Browser doesn't support Geolocation
+        //     handleLocationError(false, infoWindow, map.getCenter());
+        //   }
+        //
+        //
+        // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        //   infoWindow.setPosition(pos);
+        //   infoWindow.setContent(browserHasGeolocation ?
+        //                         'Error: The Geolocation service failed.' :
+        //                         'Error: Your browser doesn\'t support geolocation.');
+        // }
 
   });//End mapController
