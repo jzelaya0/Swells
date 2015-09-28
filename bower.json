@@ -1,0 +1,17 @@
+{
+  "name": "swells",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jzelaya0/Swells",
+  "authors": [
+    "Jesse Zelaya <jessezelaya1@gmail.com>"
+  ],
+  "description": "Surf Session Logging App",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.4.6",
+    "angular-animate": "~1.4.6",
+    "angular-bootstrap": "~0.13.4",
+    "angular-route": "~1.4.6",
+    "bootstrap": "~3.3.5"
+  }
+}
