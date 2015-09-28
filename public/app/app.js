@@ -1,6 +1,5 @@
 //./public/app/app.js
 angular.module('swellsApp', [
-  // 'ngAnimate',
   'appRoutes',
   'authService',
   'userService',
@@ -11,7 +10,9 @@ angular.module('swellsApp', [
   'surfCtrl',
   'mapCtrl',
   'weatherCtrl',
-  'ngMessages'
+  'ngMessages',
+  'ngAnimate',
+  'ui.bootstrap'
 ])
   //application configuration to integrate tokens into our requests
   .config(function($httpProvider){
