@@ -12,7 +12,6 @@
   <!-- NEW SURF SESSION FORM -->
   <div class="row col-sm-6 col-sm-offset-3">
     <form ng-submit="map.saveSurfSession()" class="well">
-
       <!-- Surf Title Input -->
       <div class="form-group">
         <label>Title</label>
@@ -25,15 +24,11 @@
         <input type="text" class="form-control" placeholder="Comment?" ng-model="map.surfData.comment">
       </div>
 
-
-      <div class="alert alert-success" ng-if='map.message'>
-        <p class="text-center">
-          {{map.message}}
-        </p>
-      </div>
+      <!-- ALERT MESSAGE -->
+      <alert type='success' close="map.closeAlert()" ng-if='map.alert'>{{map.alert}}</alert>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-block btn-info">
+      <button type="submit" class="btn btn-block btn-primary">
         <!-- Show Submit -->
         <span ng-if="!map.processing">Submit</span>
         <!-- Show spinner animation when submitting -->
