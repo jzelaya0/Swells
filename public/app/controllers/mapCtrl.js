@@ -6,7 +6,6 @@ angular.module('mapCtrl',['surfService'])
     var markers = [];
     var newMarker = null;
     var infoWindow = new google.maps.InfoWindow();
-    vm.removeMarkerMessage = '';
 
     // =============================
     // Get all Surf Session locations from Ajax Requst
@@ -72,14 +71,23 @@ angular.module('mapCtrl',['surfService'])
           .success(function(data){
             //Spinning animation on click
             vm.processing = false;
-            //Assign message to server response
-            vm.message = data.message;
-            console.log(vm.surfData);
+            //Assign alert from server response
+            vm.alert = data.message;
+            //Clear the Form on success
+            vm.surfData = {};
             //Clear the map on success
             deleteMarkers();
           });
-
     };
+
+    // =============================
+    // Alert Messages for Forms
+    // =============================
+    vm.alert = ''; //For alert messages
+
+    vm.closeAlert = function(index) {
+      vm.alert = '';
+    }
 
 
     // =======================================================================================
