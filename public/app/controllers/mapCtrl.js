@@ -84,7 +84,7 @@ angular.module('mapCtrl',['surfService'])
     // =============================
     vm.alert = ''; //For Form alert messages
     vm.removeMarker = ''; //Remove Marker Before seeing sessions
-
+    
     vm.closeAlert = function(index) {
       vm.alert = '';
       vm.removeMarker= '';
