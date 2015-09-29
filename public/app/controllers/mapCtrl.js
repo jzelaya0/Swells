@@ -35,8 +35,7 @@ angular.module('mapCtrl',['surfService'])
           });//End success
         }else {
           //Marker Must Be Removed
-          vm.removeMarkerMessage = 'Remove Markers';
-          alert("Remove Marker");
+          vm.removeMarker = "Clear Map First!";
         }
 
     };
@@ -83,11 +82,13 @@ angular.module('mapCtrl',['surfService'])
     // =============================
     // Alert Messages for Forms
     // =============================
-    vm.alert = ''; //For alert messages
+    vm.alert = ''; //For Form alert messages
+    vm.removeMarker = ''; //Remove Marker Before seeing sessions
 
     vm.closeAlert = function(index) {
       vm.alert = '';
-    }
+      vm.removeMarker= '';
+    };
 
 
     // =======================================================================================
@@ -108,7 +109,6 @@ angular.module('mapCtrl',['surfService'])
       //Set the Lat & Lng of the new marker to use in saveSurfSession()
       newMarker = {latitude: marker.position.H , longitude: marker.position.L};
       map.panTo(location);
-
       console.log('NewMarker',newMarker);
 
       //Set the IW Content for each marker
@@ -175,7 +175,7 @@ angular.module('mapCtrl',['surfService'])
 
 
       // This event listener will call addMarker() when the map is clicked.
-        map.addListener('click', function(event) {
+        google.maps.event.addListener(map,'click', function(event) {
           // Allow for one marker to be placed at a time
             if(markers.length === 0){
               addMarker(event.latLng);

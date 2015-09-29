@@ -3,6 +3,7 @@
   <div id="map" class="well"></div>
 
   <!-- SHOW / CLEAR ALL SURF SESSION MARKERS -->
+    <alert type='danger' class="text-center" close="map.closeAlert()" ng-if='map.removeMarker'>{{map.removeMarker}}</alert>
   <div class="well">
     <!-- SHOW SESSIONS / CLEAR MAP -->
     <button type="button" class='btn btn-default' ng-click="map.displaySurfSessions()">Show My Sessions</button>
