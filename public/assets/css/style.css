@@ -63,13 +63,14 @@ FOOTER
 
 .footer{
 	width: 100%;
-	padding: 15px 0;
+	padding: 10px 0;
 	height: 50px;
 	position: fixed;
 	bottom: 0px;
 	text-align: center;
 	background-color: rgb(50, 50, 50);
 	color: #858585;
+	border-top: 5px solid rgb(75, 75, 75);
 }
 
 /**********************
