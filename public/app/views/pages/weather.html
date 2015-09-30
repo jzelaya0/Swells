@@ -1,105 +1,111 @@
-<!-- FIND CURRENT WEATER CONDITIONS -->
-<div class="row col-sm-6 col-sm-offset-3 page-header">
-  <form class="form-inline" ng-submit="weather.findWeather()">
-    <h3>Find Current Conditions</h3>
-    <!-- CITY -->
-    <div class="form-group">
-      <label >City</label>
-      <input type="text" class="form-control" placeholder="Santa Monica" ng-model='weather.weatherData.city'>
-    </div>
-      <!-- STATE OR COUNTRY -->
-    <div class="form-group">
-      <label>State/Country</label>
-      <input type="text" class="form-control" placeholder="e.g. CA" ng-model='weather.weatherData.state'>
-    </div>
-    <!-- SUBMIT -->
-    <button type="submit" class="btn btn-default">Search</button>
-  </form>
-</div>
-
-
-<!-- DISPLAY THE CURRENT WEATHER CONIDTIONS-->
-<div class="row col-sm-6 col-sm-offset-3" ng-show="weather.place">
-  <!-- SHOW CURRENT WEATHER -->
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h1 class="text-center">
-        Current Weather for: {{weather.place.current_observation.display_location.city}}
-      </h1>
-    </div>
-    <!-- Panel Body -->
-    <div class="panel-body text-center">
-      <h3>
-        <strong>
-          Conditions: {{weather.place.current_observation.icon}}
-        </strong>
-      </h3>
-
-      <img ng-src="{{weather.place.current_observation.icon_url}} " alt="weather icon" />
-      <h3>
-        <strong>
-          Current Temp: {{weather.place.current_observation.temperature_string}}
-        </strong>
-      </h3>
-      <h5>
-        <strong>
-          Feels Like: {{weather.place.current_observation.feelslike_string}}
-        </strong>
-      </h5>
-      <p>
-        <strong>
-          Humidity: {{weather.place.current_observation.relative_humidity}}
-        </strong>
-      </p>
-    </div>
+<div class="container-fluid">
+  <!-- FIND CURRENT WEATER CONDITIONS -->
+  <div class="row col-sm-6 col-sm-offset-3 page-header">
+    <form class="form-inline" ng-submit="weather.findWeather()">
+      <h3>Find Current Conditions</h3>
+      <!-- CITY -->
+      <div class="form-group">
+        <label >City</label>
+        <input type="text" class="form-control" placeholder="Santa Monica" ng-model='weather.weatherData.city'>
+      </div>
+        <!-- STATE OR COUNTRY -->
+      <div class="form-group">
+        <label>State/Country</label>
+        <input type="text" class="form-control" placeholder="e.g. CA" ng-model='weather.weatherData.state'>
+      </div>
+      <!-- SUBMIT -->
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
   </div>
-</div>
-
-<!-- END DISPLY CURRENT CONDITIONS -->
 
 
-<!-- FIND FORECAST -->
-<div class="row col-sm-6 col-sm-offset-3 page-header">
-  <form class="form-inline" ng-submit="weather.findForecast()">
-    <h3>4-Day Forecast</h3>
-    <!-- CITY -->
-    <div class="form-group">
-      <label >City</label>
-      <input type="text" class="form-control" placeholder="Santa Monica" ng-model='weather.forecastData.city'>
-    </div>
-      <!-- STATE OR COUNTRY -->
-    <div class="form-group">
-      <label>State/Country</label>
-      <input type="text" class="form-control" placeholder="e.g. CA" ng-model='weather.forecastData.state'>
-    </div>
-    <!-- SUBMIT -->
-    <button type="submit" class="btn btn-default">Search</button>
-  </form>
-</div>
-
-<div class="row" ng-show='weather.location'>
-  <div class="col-xs-6 forecast-panel" ng-repeat="f in weather.location.forecast.simpleforecast.forecastday">
+  <!-- DISPLAY THE CURRENT WEATHER CONIDTIONS-->
+  <div class="row col-sm-6 col-sm-offset-3" ng-show="weather.place">
+    <!-- SHOW CURRENT WEATHER -->
     <div class="panel panel-info">
-      <div class="panel-heading text-center">
-        <h3>{{f.date.weekday}} | {{f.date.monthname_short}}. {{f.date.day}}, {{f.date.year}}</h3>
+      <div class="panel-heading">
+        <h1 class="text-center">
+          Current Weather for: {{weather.place.current_observation.display_location.city}}
+        </h1>
+      </div>
+      <!-- Panel Body -->
+      <div class="panel-body text-center">
+        <h3>
+          <strong>
+            Conditions: {{weather.place.current_observation.icon}}
+          </strong>
+        </h3>
+
+        <img ng-src="{{weather.place.current_observation.icon_url}} " alt="weather icon" />
+        <h3>
+          <strong>
+            Current Temp: {{weather.place.current_observation.temperature_string}}
+          </strong>
+        </h3>
+        <h5>
+          <strong>
+            Feels Like: {{weather.place.current_observation.feelslike_string}}
+          </strong>
+        </h5>
+        <p>
+          <strong>
+            Humidity: {{weather.place.current_observation.relative_humidity}}
+          </strong>
+        </p>
       </div>
     </div>
-    <div class="panel panel-body">
-      <img src="{{f.icon_url}}" alt="weather icon"/>
-      <h4> <strong>{{f.conditions}} </strong> </h4>
-      <p>
-        <strong>Humidity: </strong> {{f.avehumidity}}%
-      </p>
-      <p>
-        <strong>High: </strong>{{f.high.fahrenheit}}% &deg;F | {{f.high.celsius}}% &deg;C
-      </p>
-      <p>
-        <strong>Low: </strong> {{f.low.fahrenheit}}% &deg;F | {{f.low.celsius}}% &deg;C
-      </p>
-      <p>
-        <strong>Wind: </strong> {{f.avewind.degrees}} &deg; | {{f.avewind.dir}} | {{f.avewind.mph}}  mph -  {{f.avewind.kph}} kph
-      </p>
-    </div>
-
   </div>
+
+  <!-- END DISPLY CURRENT CONDITIONS -->
+
+
+  <!-- FIND FORECAST -->
+  <div class="row col-sm-6 col-sm-offset-3 page-header">
+    <form class="form-inline" ng-submit="weather.findForecast()">
+      <h3>4-Day Forecast</h3>
+      <!-- CITY -->
+      <div class="form-group">
+        <label >City</label>
+        <input type="text" class="form-control" placeholder="Santa Monica" ng-model='weather.forecastData.city'>
+      </div>
+        <!-- STATE OR COUNTRY -->
+      <div class="form-group">
+        <label>State/Country</label>
+        <input type="text" class="form-control" placeholder="e.g. CA" ng-model='weather.forecastData.state'>
+      </div>
+      <!-- SUBMIT -->
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+
+  <div class="row" ng-show='weather.location'>
+    <div class="col-xs-6 forecast-panel" ng-repeat="f in weather.location.forecast.simpleforecast.forecastday">
+      <div class="panel panel-info">
+        <div class="panel-heading text-center">
+          <h3>{{f.date.weekday}} | {{f.date.monthname_short}}. {{f.date.day}}, {{f.date.year}}</h3>
+        </div>
+      </div>
+      <div class="panel panel-body">
+        <img src="{{f.icon_url}}" alt="weather icon"/>
+        <h4> <strong>{{f.conditions}} </strong> </h4>
+        <p>
+          <strong>Humidity: </strong> {{f.avehumidity}}%
+        </p>
+        <p>
+          <strong>High: </strong>{{f.high.fahrenheit}}% &deg;F | {{f.high.celsius}}% &deg;C
+        </p>
+        <p>
+          <strong>Low: </strong> {{f.low.fahrenheit}}% &deg;F | {{f.low.celsius}}% &deg;C
+        </p>
+        <p>
+          <strong>Wind: </strong> {{f.avewind.degrees}} &deg; | {{f.avewind.dir}} | {{f.avewind.mph}}  mph -  {{f.avewind.kph}} kph
+        </p>
+      </div>
+
+    </div>
+  </div>
+
 </div>
+
+<!-- SPACER 150 -->
+<div class="spacer150"></div>
