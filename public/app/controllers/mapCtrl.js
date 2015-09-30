@@ -84,7 +84,7 @@ angular.module('mapCtrl',['surfService'])
     // =============================
     vm.alert = ''; //For Form alert messages
     vm.removeMarker = ''; //Remove Marker Before seeing sessions
-    
+
     vm.closeAlert = function(index) {
       vm.alert = '';
       vm.removeMarker= '';
@@ -94,6 +94,90 @@ angular.module('mapCtrl',['surfService'])
     // =======================================================================================
     // GOOGLE MAPS CONFIG
     // =======================================================================================
+
+    //BLUE WATER MAP STYLE
+    var styles =  [
+          {
+              "featureType": "administrative",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  {
+                      "color": "#444444"
+                  }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "color": "#f2f2f2"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "road",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "saturation": -100
+                  },
+                  {
+                      "lightness": 45
+                  }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "road.arterial",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "transit",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "water",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "color": "#46bcec"
+                  },
+                  {
+                      "visibility": "on"
+                  }
+              ]
+          }
+      ];
+
+
 
     // =============================
     // Function to Set Markers on locations
@@ -166,6 +250,7 @@ angular.module('mapCtrl',['surfService'])
       //Create options for the map
       var mapOptions = {
           center: new google.maps.LatLng(37.7831,-122.4039),
+          styles: styles,
           zoom: 8,
           mapTypeId: google.maps.MapTypeId.TERRAIN
       };
