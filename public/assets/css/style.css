@@ -2,6 +2,49 @@
   GENERAL
 **************************************************/
 
+/**********************
+BOOTSTRAP OVERIDE
+***********************/
+.navbar{
+	margin-bottom: 0px;
+}
+
+
+/**********************
+LANDING PAGE (/swells)
+***********************/
+
+.background-img {
+  background: url(/assets/img/surfers.jpg) no-repeat bottom center;
+	background-size: cover;
+	height: 500px;
+	padding: 165px 0;
+}
+
+#title{
+	text-shadow: 0 0 20px gray;
+}
+
+#title h1{
+	margin: 0;
+	font-size: 5.5em;
+}
+
+
+/**********************
+MAP
+***********************/
+
+
+#map{
+	height: 400px;
+	width: 100%;
+}
+
+.iW{
+	background-color: gray;
+	padding: 10px;
+}
 
 
 /**************************************************
@@ -27,15 +70,4 @@
 @-moz-keyframes spin {
 	from 	{ -moz-transform:rotate(0deg); }
 	to 	{ -moz-transform:rotate(360deg); }
-}
-
-
-#map{
-	height: 400px;
-	width: 100%;
-}
-
-.iW{
-	background-color: gray;
-	padding: 10px;
 }
