@@ -196,9 +196,9 @@ angular.module('mapCtrl',['surfService'])
       console.log('NewMarker',newMarker);
 
       //Set the IW Content for each marker
-      var infoWindowContent = '<div class="alert alert-info"' +
-          "<h2>" + marker.title + "</h2>" +
-          "<p>" + marker.comment + "</p>" + "<div>";
+      var infoWindowContent =
+          "<h2 class='iw-title'>" + marker.title + "</h2>" +
+          "<p class='iw-comment'> " + marker.comment + "</p>" ;
 
       //Create a new click event listerner for each marker
       google.maps.event.addListener(marker, 'click', function(){

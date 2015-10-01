@@ -129,10 +129,27 @@ MAP
 	width: 100%;
 }
 
-.iW{
-	background-color: gray;
-	padding: 10px;
+.gm-style-iw{
+	padding: 0;
+	background-color: #464545;
+	border-radius: 10px;
+	text-align: center;
 }
+
+
+.iw-title{
+	background-color: #46BCEC;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.iw-comment{
+	background-color: gray;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+
 
 
 /**************************************************
