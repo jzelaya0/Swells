@@ -1,92 +1,97 @@
-<div class="container-fluid">
-  <div class="row col-sm-6 col-sm-offset-3">
-  <div class="jumbtron">
-    <h1>Sign Up</h1>
+<div class="background-img-signup">
+  <div class="container-fluid">
+    <!-- SPACER 100 -->
+    <div class="spacer100"></div>
+    <div class="row col-sm-6 col-sm-offset-3">
+    <div class="jumbtron well">
+      <h1 class="text-center">Sign Up</h1>
 
-    <!-- Sign Up Form -->
-    <form ng-submit='signup.saveUser()' name='signUpForm' novalidate>
+      <!-- Sign Up Form -->
+      <form ng-submit='signup.saveUser()' name='signUpForm' novalidate>
 
-      <!-- Name Input -->
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text"
-              class="form-control"
-              name="name"
-              placeholder="Enter Your Name"
-              ng-model='signup.userData.name'
-              required>
-        <!-- Ng-messages Name required -->
-        <div class="help-block" ng-messages='signUpForm.name.$error' ng-show="signUpForm.name.$touched">
-          <p class="bg-danger" ng-message='required'>Name is required</p>
+        <!-- Name Input -->
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text"
+                class="form-control"
+                name="name"
+                placeholder="Enter Your Name"
+                ng-model='signup.userData.name'
+                required>
+          <!-- Ng-messages Name required -->
+          <div class="help-block" ng-messages='signUpForm.name.$error' ng-show="signUpForm.name.$touched">
+            <p class="bg-danger" ng-message='required'>Name is required</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Username Input -->
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text"
-              class="form-control"
-              name='username'
-              placeholder="Enter Username"
-              ng-model='signup.userData.username'
-              ng-minlength="5"
-              ng-maxlength="15"
-              required>
-              <!-- Ng-messages UserName length & required -->
-          <div class="help-block" ng-messages='signUpForm.username.$error' ng-show="signUpForm.username.$touched">
-            <p class="bg-danger" ng-message='required'>Username is required</p>
-            <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
-            <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
-          </div>
-      </div>
+        <!-- Username Input -->
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text"
+                class="form-control"
+                name='username'
+                placeholder="Enter Username"
+                ng-model='signup.userData.username'
+                ng-minlength="5"
+                ng-maxlength="15"
+                required>
+                <!-- Ng-messages UserName length & required -->
+            <div class="help-block" ng-messages='signUpForm.username.$error' ng-show="signUpForm.username.$touched">
+              <p class="bg-danger" ng-message='required'>Username is required</p>
+              <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
+              <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
+            </div>
+        </div>
 
-      <!-- Password Input -->
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password"
-              class="form-control"
-              name="password"
-              placeholder="Enter Password"
-              ng-model='signup.userData.password'
-              ng-minlength="6"
-              ng-maxlength="20"
-              required>
-              <!-- Ng-messages UserName length & required -->
-          <div class="help-block" ng-messages='signUpForm.password.$error' ng-show="signUpForm.password.$touched">
-            <p class="bg-danger" ng-message='required'>Password is required</p>
-            <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
-            <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
-          </div>
-      </div>
-
-
-      <!-- Sign Up Message - Duplicate User -->
-      <div class="alert alert-danger" ng-if='signup.message'>
-        <p class="text-center">
-          {{signup.message}}
-        </p>
-      </div>
-
-      <!-- Sign Up Message - Success creating User -->
-      <a href="/login" class="btn btn-block btn-success" role="button" ng-if='signup.login'>
-        {{signup.login}} <span>Log In!</span>
-      </a>
+        <!-- Password Input -->
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password"
+                class="form-control"
+                name="password"
+                placeholder="Enter Password"
+                ng-model='signup.userData.password'
+                ng-minlength="6"
+                ng-maxlength="20"
+                required>
+                <!-- Ng-messages UserName length & required -->
+            <div class="help-block" ng-messages='signUpForm.password.$error' ng-show="signUpForm.password.$touched">
+              <p class="bg-danger" ng-message='required'>Password is required</p>
+              <p class="bg-warning" ng-message='minlength'>Too short brah...</p>
+              <p class="bg-warning" ng-message='maxlength'>Too long dude...</p>
+            </div>
+        </div>
 
 
-      <!-- Signup Button -->
-      <button type="submit" class="btn btn-block btn-info">
-        <!-- Show SignUP -->
-        <span ng-if="!signup.processing">Sign Up</span>
-        <!-- Show spinner animation when signing up -->
-        <span ng-if="signup.processing" class="spinner">
-          <span class="glyphicon glyphicon-repeat"></span>
-        </span>
-      </button>
+        <!-- Sign Up Message - Duplicate User -->
+        <div class="alert alert-danger" ng-if='signup.message'>
+          <p class="text-center">
+            {{signup.message}}
+          </p>
+        </div>
 
-    </form>
-    <!-- End Sign Up Form -->
+        <!-- Sign Up Message - Success creating User -->
+        <a href="/login" class="btn btn-block btn-success" role="button" ng-if='signup.login'>
+          {{signup.login}} <span>Log In!</span>
+        </a>
+
+
+        <!-- Signup Button -->
+        <button type="submit" class="btn btn-block btn-info">
+          <!-- Show SignUP -->
+          <span ng-if="!signup.processing">Sign Up</span>
+          <!-- Show spinner animation when signing up -->
+          <span ng-if="signup.processing" class="spinner">
+            <span class="glyphicon glyphicon-repeat"></span>
+          </span>
+        </button>
+
+      </form>
+      <!-- End Sign Up Form -->
+    </div>
+
   </div>
 
-</div>
+  </div>
 
 </div>

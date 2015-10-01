@@ -1,7 +1,10 @@
 /**************************************************
   GENERAL
 **************************************************/
-
+html,
+body {
+	height: 100%;
+}
 /**********************
 BOOTSTRAP OVERIDE
 ***********************/
@@ -92,6 +95,18 @@ LANDING PAGE (/swells)
 	background-size: cover;
 	height: 500px;
 	padding: 165px 0;
+}
+
+.background-img-login {
+  background: url(/assets/img/waves.jpg) no-repeat bottom center;
+	background-size: cover;
+	height: 1000px;
+}
+
+.background-img-signup {
+  background: url(/assets/img/pier.jpg) no-repeat bottom center;
+	background-size: cover;
+	height: 1000px;
 }
 
 #title{
