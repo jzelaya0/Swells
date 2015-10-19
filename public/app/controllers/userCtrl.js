@@ -35,6 +35,7 @@ angular.module('userCtrl',['userService'])
 
             //Clear the form
             vm.userData = {};
+            $location.path('/login')
 
         });//End success
     };//End saveUser
