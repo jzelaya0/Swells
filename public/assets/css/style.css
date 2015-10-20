@@ -1,12 +1,6 @@
 /**************************************************
-  MixIns
+  GENERAL
 **************************************************/
-/***************
-Animation Mixin
-***************/
-/***************
-Spacers
-***************/
 html,
 body {
   height: 100%; }
@@ -79,27 +73,32 @@ FOOTER
 LANDING PAGE (/swells)
 ***********************/
 .background-img {
-  background: url(/assets/img/surfers.jpg) no-repeat bottom center;
+  background-image: url("/assets/img/surfers.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
   background-size: cover;
   height: 500px;
   padding: 165px 0; }
 
 .background-img-login {
-  background: url(/assets/img/waves.jpg) no-repeat bottom center;
+  background-image: url("/assets/img/waves.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
   background-size: cover;
-  height: 1000px; }
+  height: 100vh; }
 
 .background-img-signup {
-  background: url(/assets/img/pier.jpg) no-repeat bottom center;
+  background-image: url("/assets/img/pier.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
   background-size: cover;
-  height: 1000px; }
+  height: 100vh; }
 
 #title {
   text-shadow: 0 0 20px gray; }
-
-#title h1 {
-  margin: 0;
-  font-size: 5.5em; }
+  #title h1 {
+    margin: 0;
+    font-size: 5.5em; }
 
 /**********************
 MAP

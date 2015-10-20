@@ -1,9 +1,10 @@
 /**************************************************
-  MixIns
+  GENERAL
 **************************************************/
-/***************
-Animation Mixin
-***************/
+
+// =========================
+// Animation Mixin
+// =========================
 @mixin spin-animation($spin){
 	-webkit-animation: $spin;
 	-moz-animation: $spin;
@@ -22,10 +23,9 @@ Animation Mixin
 	}
 }
 
-/***************
-Spacers
-***************/
-
+// =========================
+// Spacers Mixins
+// =========================
 @mixin spacers($height,$width,$font,$mar,$pad,$border,$display){
 	height: $height;
 	width: $width;
@@ -35,6 +35,25 @@ Spacers
 	border: $border;
 	display: $display;
 }
+
+// =========================
+// Background-Image Mixins
+// =========================
+@mixin background($image,$repeat,$position,$size,$height){
+	background: {
+		image: url($image);
+		repeat: $repeat;
+		position: $position;
+		size: $size;
+	}
+	height: $height;
+}
+
+
+// =========================
+// VARIABLES
+// =========================
+$dark-gray: rgb(50, 50, 50);
 
 
 html,
@@ -47,7 +66,7 @@ BOOTSTRAP OVERIDE
 .navbar{
 	margin-bottom: 0px;
 	padding: 15px 0;
-	background-color: rgb(50, 50, 50);
+	background-color: $dark-gray;
 }
 
 .navbar-text{
@@ -58,7 +77,6 @@ BOOTSTRAP OVERIDE
 /**********************
 SPACERS
 ***********************/
-
 .spacer25 {
 	@include spacers(25px,100%,0,0,0,0,block)
 }
@@ -90,7 +108,7 @@ FOOTER
 	position: fixed;
 	bottom: 0px;
 	text-align: center;
-	background-color: rgb(50, 50, 50);
+	background-color: $dark-gray;
 	color: #858585;
 	border-top: 5px solid rgb(75, 75, 75);
 }
@@ -98,33 +116,25 @@ FOOTER
 /**********************
 LANDING PAGE (/swells)
 ***********************/
-
 .background-img {
-  background: url(/assets/img/surfers.jpg) no-repeat bottom center;
-	background-size: cover;
-	height: 500px;
+  @include background('/assets/img/surfers.jpg', no-repeat, bottom center, cover, 500px);
 	padding: 165px 0;
 }
 
 .background-img-login {
-  background: url(/assets/img/waves.jpg) no-repeat bottom center;
-	background-size: cover;
-	height: 1000px;
+  @include background('/assets/img/waves.jpg', no-repeat, bottom center, cover, 100vh);
 }
 
 .background-img-signup {
-  background: url(/assets/img/pier.jpg) no-repeat bottom center;
-	background-size: cover;
-	height: 1000px;
+  @include background('/assets/img/pier.jpg', no-repeat, bottom center, cover, 100vh);
 }
 
 #title{
 	text-shadow: 0 0 20px gray;
-}
-
-#title h1{
-	margin: 0;
-	font-size: 5.5em;
+	h1 {
+		margin: 0;
+		font-size: 5.5em;
+	}
 }
 
 
