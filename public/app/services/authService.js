@@ -91,12 +91,15 @@ angular.module('authService', [])
       var token = AuthToken.getToken();
 
       //Reset Headers for other API request
-       var isWeatherAPI = config.url.indexOf('api.wunderground.com') > -1;
+      var isWeatherAPI = config.url.indexOf('api.wunderground.com') > -1;
+      var openWeatherAPI = config.url.indexOf('api.worldweatheronline.com') > -1;
 
+      if(!isWeatherAPI && !openWeatherAPI){
       //If token exists then add it to the header as x-access-token
-      if(token && !isWeatherAPI)
-        config.headers['x-access-token'] = token;
-        // console.log(config);
+        if(token){
+          config.headers['x-access-token'] = token;
+        }
+      }
 
       return config;
     };
