@@ -1,1 +1,31 @@
 <!-- surfReport page-->
+<div class="container-fluid">
+  <!-- SPACER 25 -->
+  <div class="spacer25"></div>
+  <!-- FIND SURF REPORT FOR CITY AND STATE -->
+  <div class="row col-sm-6">
+    <form class="form-group" ng-submit="sr.findReport()">
+      <h3>Find Current Conditions</h3>
+      <!-- CITY -->
+      <div class="form-group">
+        <label >City / Beach</label>
+        <input type="text" class="form-control" placeholder="Huntignton Beach" ng-model='sr.location.city'>
+      </div>
+        <!-- STATE OR COUNTRY -->
+      <div class="form-group">
+        <label>State</label>
+        <input type="text" class="form-control" placeholder="e.g. CA" ng-model='sr.location.state'>
+      </div>
+      <!-- SUBMIT -->
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+
+
+
+
+
+</div>
+
+<!-- SPACER 150 -->
+<div class="spacer150"></div>
