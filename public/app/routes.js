@@ -43,6 +43,12 @@ angular.module('appRoutes', ['ngRoute'])
       templateUrl: 'app/views/pages/weather.html',
       controller: 'weatherController',
       controllerAs: 'weather'
+    })
+
+    .when('/report',{
+      templateUrl: 'app/views/pages/surfReport.html',
+      controller: 'surfReportController',
+      controllerAs: 'sr'
     });
 
     //Remove hash in the Url

@@ -1,4 +1,4 @@
-//surfReport.js
+//surfReportService.js
 
 angular.module('surfReportService', [])
 
