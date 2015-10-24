@@ -14,7 +14,8 @@ angular.module('swellsApp', [
   'weatherCtrl',
   'ngMessages',
   'ngAnimate',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'chart.js'
 ])
   //application configuration to integrate tokens into our requests
   .config(function($httpProvider){
