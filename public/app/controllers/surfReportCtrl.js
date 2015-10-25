@@ -8,36 +8,47 @@ angular.module('surfReportCtrl', ['surfReportService'])
     vm.labels = ['12:00am', '3:00am', '6:00am', '9:00am', '12:00pm', '3:00pm', '6:00pm', '9:00pm'];
     vm.series = ['Significant Swell Height(m)', 'Swell Height(m)'];
 
-    //Placeholder
-    vm.data = [
+    //Placeholder for Swell Heights Chart
+    vm.heightData = [
       [65, 59, 80, 81, 56, 55, 40, 20],//Significant Swell Height
       [34, 23, 12, 12, 31, 123, 13, 20]//Swell Height
     ];
 
+    //Arrays for data response object properties
+    var sigSwellHeightArr   = [];
+    var swellHeightArr      = [];
+    
+    // GET SURF REPORT INFORMATION
+    // ========================================
     vm.findReport = function(){
       SurfReport.getReport(vm.location)
-        .success(function(data){
-          //Set variable for returned data object
-          var hourlyData = data.data.weather[0].hourly;
-          //Empty array for significant swells height
-          var sigSwellHeightArr = [];
-          var swellHeight = [];
-
-          //Loop through hourlyData to push sig swell ht to sigSwellHeightArr;
-          for (var i = 0; i < hourlyData.length; i++) {
-            var sigSwellResult = hourlyData[i].sigHeight_m;
-            var swellResult = hourlyData[i].swellHeight_m;
-            sigSwellHeightArr.push(sigSwellResult);
-            swellHeight.push(swellResult);
-          }
-
-          //Set swell heights arrays to data array
-          vm.data[0] = sigSwellHeightArr;
-          vm.data[1] = swellHeight;
-          console.log(data);
-          console.log(sigSwellHeightArr);
-          console.log(swellHeight);
-
+        .success(function(dataResponse){
+          var res = getSurfData(dataResponse);
+          //Set swell height data to vm.heightData
+          vm.heightData[0] = res.sigHeight;
+          vm.heightData[1] = res.swellHeight;
         });//End Success
-    };//End findReport
+    };
+
+    // Func to loop through dataResponse object's hourly array
+    // ========================================
+    function getSurfData(dataObj) {
+      //Set object to hold array with data
+      var swellsObj = {
+        sigHeight: sigSwellHeightArr,
+        swellHeight: swellHeightArr
+      };
+
+      //Set hourly propert to an array to loop through
+      var array = dataObj.data.weather[0].hourly;
+      //Loop through array and push all data needed to appropriate array
+      for (var i = 0; i < array.length; i++) {
+        sigSwellHeightArr.push(array[i].sigHeight_m);
+        swellHeightArr.push(array[i].swellHeight_m);
+      }
+
+      //Return swell object with data from arrays
+      return swellsObj;
+    }//End getSurfData
+
   });//End controller
