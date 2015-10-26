@@ -25,6 +25,7 @@
     <div class="col-sm-6">
       <h3 class="text-center well">Swell Height</h3>
       <div class="well">
+        <h5 class="text-center" ng-if='sr.reportLocation'> - <strong>{{sr.reportLocation}}</strong> - </h5>
         <canvas id="bar" class="chart chart-line"
           chart-data="sr.heightData" chart-labels="sr.swellLabels" chart-series="sr.swellSeries"
           chart-colours='sr.swellColors'
@@ -39,6 +40,7 @@
     <div class="col-sm-6">
       <h3 class="text-center well">Air Temperature</h3>
       <div class="well">
+        <h5 class="text-center" ng-if='sr.reportLocation'> - <strong>{{sr.reportLocation}}</strong> - </h5>
         <canvas id="bar" class="chart chart-bar"
           chart-data="sr.tempData" chart-labels="sr.tempLabels" chart-series="sr.tempSeries"
           chart-colours='sr.tempColors'
@@ -50,6 +52,7 @@
     <div class="col-sm-6">
       <h3 class="text-center well">Water Temperature</h3>
       <div class="well">
+        <h5 class="text-center" ng-if='sr.reportLocation'> - <strong>{{sr.reportLocation}}</strong> - </h5>
         <canvas id="bar" class="chart chart-bar"
           chart-data="sr.waterTempData" chart-labels="sr.waterTempLabels" chart-series="sr.waterTempSeries"
           chart-colours='sr.waterTempColors'

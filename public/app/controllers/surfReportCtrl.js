@@ -19,21 +19,12 @@ angular.module('surfReportCtrl', ['surfReportService'])
     vm.tempColors = ['#FF5252', '#FF8A80'];
     vm.waterTempColors = ['#49CBC8', '#4A96CD'];
 
-    //Placeholder for Swell Heights Chart
-    vm.heightData = [
-      [65, 59, 80, 81, 56, 55, 40, 20],//Significant Swell Height
-      [34, 23, 12, 12, 31, 123, 13, 20]//Swell Height
-    ];
-    //Placeholder for Swell Heights Chart
-    vm.tempData = [
-      [65, 59, 80, 81, 56, 55, 40, 20],//Significant Swell Height
-      [34, 23, 12, 12, 31, 123, 13, 20]//Swell Height
-    ];
-    //Placeholder for Swell Heights Chart
-    vm.waterTempData = [
-      [65, 59, 80, 81, 56, 55, 40, 20],//Significant Swell Height
-      [34, 23, 12, 12, 31, 123, 13, 20]//Swell Height
-    ];
+    //Significant Swell Height & Swell Height
+    vm.heightData = [];
+    //Air Temperature Data Cel & Fahr
+    vm.tempData =  [];
+    //Water Tempearture Data Cel & Fahr
+    vm.waterTempData = [];
 
     //Arrays for data response object properties
     var sigSwellHeightArr   = [];
@@ -43,6 +34,7 @@ angular.module('surfReportCtrl', ['surfReportService'])
     var waterTempCelArr     = [];
     var waterTempFahArr     = [];
 
+    vm.reportLocation = '';
 
     // GET SURF REPORT INFORMATION
     // ========================================
@@ -67,8 +59,19 @@ angular.module('surfReportCtrl', ['surfReportService'])
            waterTempCelArr     = [];
            waterTempFahArr     = [];
 
+           //Bind requested location to display on page
+           var cityAndState = vm.location.city + ', ' + vm.location.state;
+
+           //Show what to display based on what location was inputted
+           if(vm.location.city && vm.location.state){
+             vm.reportLocation = cityAndState;
+           }else {
+             vm.reportLocation = vm.location.city;
+           }
+
            //Clear the search form fields
            vm.location = '';
+
         });//End Success
     };
 
