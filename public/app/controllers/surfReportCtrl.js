@@ -57,7 +57,15 @@ angular.module('surfReportCtrl', ['surfReportService'])
           vm.tempData[1]      = data.tempF;
           vm.waterTempData[0] = data.waterTempC;
           vm.waterTempData[1] = data.waterTempF;
+          console.log(data.sigHeight);
 
+          //Clear data from array after success
+           sigSwellHeightArr   = [];
+           swellHeightArr      = [];
+           tempCelArr          = [];
+           tempFahArr          = [];
+           waterTempCelArr     = [];
+           waterTempFahArr     = [];
         });//End Success
     };
 
