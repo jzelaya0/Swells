@@ -3,31 +3,61 @@
   <!-- SPACER 25 -->
   <div class="spacer25"></div>
   <!-- FIND SURF REPORT FOR CITY AND STATE -->
-  <div class="col-sm-6">
-    <form class="form-group" ng-submit="sr.findReport()">
-      <h3>Find Current Conditions</h3>
-      <!-- CITY -->
-      <div class="form-group">
-        <label >City / Beach</label>
-        <input type="text" class="form-control" placeholder="Huntignton Beach" ng-model='sr.location.city'>
+  <div class="row">
+    <div class="col-sm-6">
+      <form class="form-group" ng-submit="sr.findReport()">
+        <h3>Find Current Conditions</h3>
+        <!-- CITY -->
+        <div class="form-group">
+          <label >City / Beach</label>
+          <input type="text" class="form-control" placeholder="Huntignton Beach" ng-model='sr.location.city'>
+        </div>
+          <!-- STATE OR COUNTRY -->
+        <div class="form-group">
+          <label>State</label>
+          <input type="text" class="form-control" placeholder="e.g. CA" ng-model='sr.location.state'>
+        </div>
+        <!-- SUBMIT -->
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    </div>
+    <!-- SURF REPORT SWELL HEIGHT -->
+    <div class="col-sm-6">
+      <h3 class="text-center well">Swell Height</h3>
+      <div class="well">
+        <canvas id="bar" class="chart chart-line"
+          chart-data="sr.heightData" chart-labels="sr.swellLabels" chart-series="sr.swellSeries"
+          chart-colours='sr.swellColors'
+          chart-legend='true'>
+        </canvas>
       </div>
-        <!-- STATE OR COUNTRY -->
-      <div class="form-group">
-        <label>State</label>
-        <input type="text" class="form-control" placeholder="e.g. CA" ng-model='sr.location.state'>
-      </div>
-      <!-- SUBMIT -->
-      <button type="submit" class="btn btn-default">Search</button>
-    </form>
+    </div>
   </div>
-  <!-- SURF REPORT SWELL HEIGHT -->
-  <div class="col-sm-6 well">
-    <h2 class="text-center">Swell Height</h2>
-    <canvas id="bar" class="chart chart-bar"
-      chart-data="sr.heightData" chart-labels="sr.labels" chart-series="sr.series" chart-legend='true'>
-    </canvas>
-  </div>
-</div>
 
-<!-- SPACER 150 -->
-<div class="spacer150"></div>
+  <div class="row">
+    <!-- SURF REPORT TEMP  -->
+    <div class="col-sm-6">
+      <h3 class="text-center well">Air Temperature</h3>
+      <div class="well">
+        <canvas id="bar" class="chart chart-bar"
+          chart-data="sr.tempData" chart-labels="sr.tempLabels" chart-series="sr.tempSeries"
+          chart-colours='sr.tempColors'
+          chart-legend='true'>
+        </canvas>
+      </div>
+    </div>
+    <!-- SURF REPORT WATER TEMP  -->
+    <div class="col-sm-6">
+      <h3 class="text-center well">Water Temperature</h3>
+      <div class="well">
+        <canvas id="bar" class="chart chart-bar"
+          chart-data="sr.waterTempData" chart-labels="sr.waterTempLabels" chart-series="sr.waterTempSeries"
+          chart-colours='sr.waterTempColors'
+          chart-legend='true'>
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <!-- SPACER 150 -->
+  <div class="spacer150"></div>
+</div>
