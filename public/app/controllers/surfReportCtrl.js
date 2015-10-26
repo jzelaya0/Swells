@@ -41,39 +41,55 @@ angular.module('surfReportCtrl', ['surfReportService'])
     vm.findReport = function(){
       SurfReport.getReport(vm.location)
         .success(function(dataResponse){
-          var data = getSurfData(dataResponse);
-          //Set swell height data to vm.heightData
-          vm.heightData[0]    = data.sigHeight;
-          vm.heightData[1]    = data.swellHeight;
-          vm.tempData[0]      = data.tempC;
-          vm.tempData[1]      = data.tempF;
-          vm.waterTempData[0] = data.waterTempC;
-          vm.waterTempData[1] = data.waterTempF;
-          console.log(data.sigHeight);
+          //user input location response
+          var userInput = dataResponse.data.nearest_area[0];
 
-          //Clear data from array after success
-           sigSwellHeightArr   = [];
-           swellHeightArr      = [];
-           tempCelArr          = [];
-           tempFahArr          = [];
-           waterTempCelArr     = [];
-           waterTempFahArr     = [];
+          //If user inputs valid request
+          if (userInput !== null) {
+            var data = getSurfData(dataResponse);
+            //Set swell height data to vm.heightData
+            vm.heightData[0]    = data.sigHeight;
+            vm.heightData[1]    = data.swellHeight;
+            vm.tempData[0]      = data.tempC;
+            vm.tempData[1]      = data.tempF;
+            vm.waterTempData[0] = data.waterTempC;
+            vm.waterTempData[1] = data.waterTempF;
 
-           //Bind requested location to display on page
-           var cityAndState = vm.location.city + ', ' + vm.location.state;
+            //Clear data from array after success
+             sigSwellHeightArr   = [];
+             swellHeightArr      = [];
+             tempCelArr          = [];
+             tempFahArr          = [];
+             waterTempCelArr     = [];
+             waterTempFahArr     = [];
 
-           //Show what to display based on what location was inputted
-           if(vm.location.city && vm.location.state){
-             vm.reportLocation = cityAndState;
-           }else {
-             vm.reportLocation = vm.location.city;
-           }
+             //Bind requested location to display on page
+             var cityAndState = vm.location.city + ', ' + vm.location.state;
 
-           //Clear the search form fields
-           vm.location = '';
+             //Show what to display based on what location was inputted
+             if(vm.location.city && vm.location.state){
+               vm.reportLocation = cityAndState;
+             }else {
+               vm.reportLocation = vm.location.city;
+             }
+
+             //Clear the search form fields and error message
+             vm.location = '';
+             vm.error    = '';
+
+          //If user input is invalid
+          }else {
+            //Set error message to display and clear form
+            vm.error = 'Sorry Dude. Try again..'
+            vm.location = '';
+          }
 
         });//End Success
     };
+
+    vm.closeAlert = function(){
+      vm.error = '';
+    }
 
     // Func to loop through dataResponse object's hourly array
     // ========================================

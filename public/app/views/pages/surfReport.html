@@ -20,6 +20,11 @@
         <!-- SUBMIT -->
         <button type="submit" class="btn btn-default">Search</button>
       </form>
+      <!-- <div class="alert alert-danger" ng-if='sr.error'>
+        {{sr.error}}
+      </div> -->
+      <alert type='danger' close="sr.closeAlert()" ng-if='sr.error'>{{sr.error}}</alert>
+
     </div>
     <!-- SURF REPORT SWELL HEIGHT -->
     <div class="col-sm-6">
