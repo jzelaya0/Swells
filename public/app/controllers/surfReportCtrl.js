@@ -15,7 +15,7 @@ angular.module('surfReportCtrl', ['surfReportService'])
     vm.waterTempSeries = ['Water Temp.(C)', 'Water Temp.(F)'];
 
     //Color for Charts
-    vm.swellColors = ['#116498', '#119698']
+    vm.swellColors = ['#116498', '#119698'];
     vm.tempColors = ['#FF5252', '#FF8A80'];
     vm.waterTempColors = ['#49CBC8', '#4A96CD'];
 
@@ -66,6 +66,9 @@ angular.module('surfReportCtrl', ['surfReportService'])
            tempFahArr          = [];
            waterTempCelArr     = [];
            waterTempFahArr     = [];
+
+           //Clear the search form fields
+           vm.location = '';
         });//End Success
     };
 
@@ -97,5 +100,15 @@ angular.module('surfReportCtrl', ['surfReportService'])
       //Return swell object with data from arrays
       return swellsObj;
     }//End getSurfData
+
+    // PRIVATE FUNCTION TO EXECUTE SEARCH FOR SURF REPORT ON PAGE LOAD
+    // (defaults to Huntington Beach, CA)
+    // ========================================
+    var init = function (){
+      vm.location = {city: 'Huntington Beach', state:'Ca'};
+        vm.findReport(vm.location);
+    };
+    //Invoke the function
+    init();
 
   });//End controller
