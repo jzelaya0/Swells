@@ -1,6 +1,6 @@
 //surfReportController
 
-angular.module('surfReportCtrl', ['surfReportService'])
+angular.module('surfReportCtrl', ['surfReportService', 'chart.js'])
 
   .controller('surfReportController', function(SurfReport){
     var vm = this;
