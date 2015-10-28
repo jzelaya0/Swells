@@ -79,7 +79,7 @@
   </div>
 
   <div class="row" ng-show='weather.location'>
-    <div class="col-xs-6 forecast-panel" ng-repeat="f in weather.location.forecast.simpleforecast.forecastday">
+    <div class="col-sm-6 forecast-panel" ng-repeat="f in weather.location.forecast.simpleforecast.forecastday">
       <div class="panel panel-info">
         <div class="panel-heading text-center">
           <h3>{{f.date.weekday}} | {{f.date.monthname_short}}. {{f.date.day}}, {{f.date.year}}</h3>
