@@ -270,5 +270,5 @@ angular.module('mapCtrl',['surfService'])
               alert('Clear Map');
             }
         });
-        
+
   });//End mapController
