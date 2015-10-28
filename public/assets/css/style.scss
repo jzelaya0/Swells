@@ -54,7 +54,7 @@
 // VARIABLES
 // =========================
 $dark-gray: rgb(50, 50, 50);
-
+$dark-gray-trans: rgba(50, 50, 50, .5);
 
 html,
 body {
@@ -133,8 +133,18 @@ LANDING PAGE (/swells)
 	text-shadow: 0 0 20px gray;
 	h1 {
 		margin: 0;
-		font-size: 5.5em;
+		font-size: 5em;
 	}
+}
+
+
+/**********************
+Signup / Login Page
+***********************/
+.forms {
+	background-color: $dark-gray-trans;
+	padding: 1px 15px 15px 15px;
+  border-radius: 15px;
 }
 
 
