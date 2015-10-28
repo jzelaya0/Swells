@@ -17,21 +17,23 @@ angular.module('mapCtrl',['surfService'])
           .success(function(dataResponse){
             //Loop through the database objects
             for (var i = 0; i < dataResponse.length; i++) {
-              console.log(dataResponse[i]);
-              //Set properties of objects into varibles for later use
-              var title = dataResponse[i].title;
-              var latitude = dataResponse[i].latitude;
-              var longitude = dataResponse[i].longitude;
-              var comment = dataResponse[i].comment;
-              //Set the latitude and longitude
-              var latLng = new google.maps.LatLng(latitude, longitude);
+              //Set variables to check coordinate validity
+              var dbLat = dataResponse[i].latitude;
+              var dbLng = dataResponse[i].longitude;
 
-              //Set a new Marker for each location
-              addMarker(latLng,title,comment);
-
-
+              //Check if coordinate from API are valid coordinate values
+              if(isValidLat(dbLat) && isValidLng(dbLng)){
+                //Set properties of objects into varibles for later use
+                var title = dataResponse[i].title;
+                var latitude = dataResponse[i].latitude;
+                var longitude = dataResponse[i].longitude;
+                var comment = dataResponse[i].comment;
+                //Set the latitude and longitude
+                var latLng = new google.maps.LatLng(latitude, longitude);
+                //Set a new Marker for each location
+                addMarker(latLng,title,comment);
+              }
             }//End for loop
-            console.log('Markers',markers);
           });//End success
         }else {
           //Marker Must Be Removed
@@ -47,7 +49,6 @@ angular.module('mapCtrl',['surfService'])
     // Clear all surf session markers from the map
     vm.removeSurfSessions = function(){
       deleteMarkers();
-      console.log(markers);
     };
 
     // =============================
@@ -88,6 +89,90 @@ angular.module('mapCtrl',['surfService'])
     vm.closeAlert = function(index) {
       vm.alert = '';
       vm.removeMarker= '';
+    };
+
+
+    // =============================
+    // Function to Set Markers on locations
+    // =============================
+    // Adds a marker to the map and push to the array.
+    function addMarker(location,title,comment) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: title,
+        comment: comment
+      });
+      //Set the Lat & Lng of the new marker to use in saveSurfSession()
+      newMarker = {latitude: marker.position.lat() , longitude: marker.position.lng()};
+      map.panTo(location);
+
+      //Set the IW Content for each marker
+      var infoWindowContent =
+          "<h2 class='iw-title'>" + marker.title + "</h2>" +
+          "<p class='iw-comment'> " + marker.comment + "</p>" ;
+
+      //Create a new click event listerner for each marker
+      google.maps.event.addListener(marker, 'click', function(){
+        infoWindow.setContent(infoWindowContent);
+        infoWindow.open(map,marker);
+      });
+
+      //Push the new marker into the markers array
+      markers.push(marker);
+    }
+
+
+    // =============================
+    // Set map all markers in array
+    // =============================
+    function setMapOnAll(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    }
+
+
+    // =============================
+    // Removes the Markers from the map only
+    // =============================
+    function clearMarkers() {
+      setMapOnAll(null);
+    }
+
+    // =============================
+    // Display any markers that are in the array
+    // =============================
+    function showMarkers() {
+      setMapOnAll(map);
+    }
+
+    // =============================
+    // Delete all markers in the array
+    // =============================
+    function deleteMarkers() {
+      clearMarkers();
+      markers = [];
+    }
+
+
+    // =============================================
+    // Check for Valid coordinate values from Swells Api Request
+    // =============================================
+
+    //Check for valid latitude coordinate
+    var isValidLat = function(val){
+        return (isNumeric(val) && (val >= -90.0) && (val <= 90.0));
+    };
+
+    //Check for valide longitude coordinate
+    var isValidLng = function (val) {
+        return (isNumeric(val) && (val >= -180.0) && (val <= 180.0));
+    };
+
+    //Check for a valid numeric value to pass to isValidLng & isValidLat
+    var isNumeric = function (n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     };
 
 
@@ -177,73 +262,6 @@ angular.module('mapCtrl',['surfService'])
           }
       ];
 
-
-
-    // =============================
-    // Function to Set Markers on locations
-    // =============================
-    // Adds a marker to the map and push to the array.
-    function addMarker(location,title,comment) {
-      var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        title: title,
-        comment: comment
-      });
-      //Set the Lat & Lng of the new marker to use in saveSurfSession()
-      newMarker = {latitude: marker.position.H , longitude: marker.position.L};
-      map.panTo(location);
-      console.log('NewMarker',newMarker);
-
-      //Set the IW Content for each marker
-      var infoWindowContent =
-          "<h2 class='iw-title'>" + marker.title + "</h2>" +
-          "<p class='iw-comment'> " + marker.comment + "</p>" ;
-
-      //Create a new click event listerner for each marker
-      google.maps.event.addListener(marker, 'click', function(){
-        infoWindow.setContent(infoWindowContent);
-        infoWindow.open(map,marker);
-      });
-
-      //Push the new marker into the markers array
-      markers.push(marker);
-    }
-
-
-    // =============================
-    // Set map all markers in array
-    // =============================
-    function setMapOnAll(map) {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-      }
-    }
-
-
-    // =============================
-    // Removes the Markers from the map only
-    // =============================
-    function clearMarkers() {
-      setMapOnAll(null);
-    }
-
-    // =============================
-    // Display any markers that are in the array
-    // =============================
-    function showMarkers() {
-      setMapOnAll(map);
-    }
-
-    // =============================
-    // Delete all markers in the array
-    // =============================
-    function deleteMarkers() {
-      clearMarkers();
-      markers = [];
-    }
-
-
     // =============================================
     // Initialize the Map
     // =============================================
@@ -264,7 +282,6 @@ angular.module('mapCtrl',['surfService'])
           // Allow for one marker to be placed at a time
             if(markers.length === 0){
               addMarker(event.latLng);
-              console.log('Markers',markers);
             }else {
               // Tell User to Clear the Map
               alert('Clear Map');
