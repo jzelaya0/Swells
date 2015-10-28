@@ -52,10 +52,19 @@
     <!-- NavBar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
+        <!-- Nav Header -->
         <div class="navbar-header">
+          <!-- Button to Toggle Navigation -->
+          <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+                  ng-click="navCollapsed = !navCollapsed">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="/">Swells</a>
         </div>
-        <div>
+        <!-- Navbar Collapse -->
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click='navCollapsed=true'>
           <!-- App Navigation -->
           <ul class="nav navbar-nav" ng-if='main.loggedIn'>
             <li><a href="/map">Map</a></li>
